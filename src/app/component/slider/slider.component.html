@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-center">
+  <div id="sliderComponent" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button *ngFor="let slide of slides; let slideIndex = index" type="button" data-bs-target="#sliderComponent"
+        [ngClass]="isActive(slideIndex)" (click)="goToSlide(slideIndex)"></button>
+    </div>
+
+    <div class="active ratio ratio-21x9">
+      <img class="w-100 img-fluid" [src]="getCurrentSlideUrl()" alt="slider">
+    </div>
+
+
+    <div (click)="goToPrevious()" class="carousel-control-prev">
+      <span class="carousel-control-prev-icon"></span>
+    </div>
+
+    <div (click)="goToNext()" class="carousel-control-next">
+      <span class="carousel-control-next-icon"></span>
+    </div>
+  </div>
+</div>

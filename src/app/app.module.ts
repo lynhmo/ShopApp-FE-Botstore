@@ -6,6 +6,7 @@ import { ProductComponent } from './page/product/product.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { AppComponent } from './app.component';
+import { SliderComponent } from './component/slider/slider.component';
 
 
 const routes: Routes = [
@@ -22,12 +23,14 @@ const routes: Routes = [
     ProductComponent,
     HeaderComponent,
     FooterComponent,
-    AppComponent
+    AppComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes) // Configure the router
   ],
+  exports:[SliderComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
