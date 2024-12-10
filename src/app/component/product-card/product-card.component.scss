@@ -1,0 +1,10 @@
+.card-img-top {
+  width: 100%; /* Make the image fill the width of the card */
+  height: 100%; /* Make the image fill the height of the defined aspect ratio */
+  object-fit: cover; /* Ensures the image is cropped but maintains its aspect ratio */
+  border-radius: 0; /* Optional: Removes rounded edges */
+}
+
+.card{
+  height: 800px;
+}

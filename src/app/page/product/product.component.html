@@ -1,9 +1,21 @@
-<p>product works!</p>
-<p>product works!</p>
-<p>product works!</p>
-<p>product works!</p>
-<p>product works!</p>
-<p>product works!</p>
-<p>product works!</p>
-<p>product works!</p>
+<div class="container d-flex">
+
+  <div class="sidebar-container me-4">
+    <product-side-bar></product-side-bar>
+  </div>
+
+
+  <div class="product-grid flex-grow-1">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 product-card-grid">
+      <div class="col" *ngFor="let product of products">
+        <product-card [product]="product"></product-card>
+      </div>
+    </div>
+    <div class="mt-3">
+      <panigation-component></panigation-component>
+    </div>
+  </div>
+
+</div>
+
 

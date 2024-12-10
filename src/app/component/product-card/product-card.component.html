@@ -1,0 +1,13 @@
+<div class="card h-100 rounded-3">
+  <img [src]="product.imageUrl" class="card-img-top rounded-top-3" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text">Price: {{ product.price | currency:'VND' }}</p>
+    <div class="stars">
+      Rating: {{ product.rating }}
+      <ng-container *ngFor="let star of stars">
+        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="sidebar p-3 bg-light rounded">
+  <!-- Categories -->
+  <h5 class="mb-3">Categories</h5>
+  <ul class="list-group mb-4">
+    <li class="list-group-item" *ngFor="let category of categories">
+      <input type="checkbox" class="form-check-input me-2" [id]="category" (change)="onCategoryChange(category)">
+      <label class="form-check-label" [for]="category">{{ category }}</label>
+    </li>
+  </ul>
+
+  <!-- Price Range -->
+  <h5 class="mb-3">Price Range</h5>
+  <div class="price-slider mb-3">
+    <div class="d-flex justify-content-between">
+      <span>0 VND</span>
+      <span>{{ priceRange | currency:'VND' }}</span>
+    </div>
+    <div class="slider-container">
+      <input type="range" class="form-range" id="priceRange" min="0" max="1000000" step="50000" [(ngModel)]="priceRange"
+        (input)="onPriceChange()" [style.background]="
+          'linear-gradient(90deg, #0d6efd ' + pricePercentage + '%, #e9ecef 0%)'
+        ">
+    </div>
+  </div>
+
+  <!-- Features (Placeholder) -->
+  <h5 class="mb-3">Features</h5>
+  <ul class="list-group">
+    <li class="list-group-item">Feature 1</li>
+    <li class="list-group-item">Feature 2</li>
+    <li class="list-group-item">Feature 3</li>
+  </ul>
+</div>

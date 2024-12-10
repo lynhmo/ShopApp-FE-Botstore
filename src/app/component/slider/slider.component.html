@@ -6,15 +6,15 @@
     </div>
 
     <div class="active ratio ratio-21x9">
-      <img class="w-100 img-fluid" [src]="getCurrentSlideUrl()" alt="slider">
+      <img class="w-100 img-fluid rounded" [src]="getCurrentSlideUrl()" alt="slider">
     </div>
 
 
-    <div (click)="goToPrevious()" class="carousel-control-prev">
+    <div (click)="goToPrevious()" class="carousel-control-prev slider-arrow">
       <span class="carousel-control-prev-icon"></span>
     </div>
 
-    <div (click)="goToNext()" class="carousel-control-next">
+    <div (click)="goToNext()" class="carousel-control-next slider-arrow">
       <span class="carousel-control-next-icon"></span>
     </div>
   </div>

@@ -1,0 +1,14 @@
+/* Sidebar-specific styles */
+.sidebar-container {
+  flex: 0 0 250px; /* Fix sidebar width */
+  max-width: 250px;
+}
+
+.product-grid {
+  flex-grow: 1; /* Product grid will take the rest of the space */
+}
+
+
+.product-card-grid{
+  height: 700px;
+}
