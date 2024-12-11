@@ -13,11 +13,13 @@ import { SideBarComponent } from './component/side-bar/side-bar.component';
 import { FormsModule } from '@angular/forms';
 import { PanigationComponent } from './component/panigation/panigation.component';
 import { DetailProductComponent } from './page/detail-product/detail-product.component';
+import { NumberInputComponent } from './component/number-input/number-input.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
+  { path: 'detail', component: DetailProductComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];
 
@@ -35,7 +37,8 @@ const routes: Routes = [
     RatingStarComponent,
     SideBarComponent,
     PanigationComponent,
-    DetailProductComponent
+    DetailProductComponent,
+    NumberInputComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+<div class="input-group input-group-sm">
+  <!-- Decrement Button -->
+  <button class="btn btn-outline-secondary" type="button" (click)="decrement()">-</button>
+
+  <!-- Number Input -->
+  <input
+    type="number"
+    class="form-control text-center"
+    [(ngModel)]="numberValue"
+    [min]="0"
+  />
+
+  <!-- Increment Button -->
+  <button class="btn btn-outline-secondary" type="button" (click)="increment()">+</button>
+</div>

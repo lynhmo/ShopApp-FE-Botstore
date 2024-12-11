@@ -1,0 +1,18 @@
+.input-group {
+  max-width: 100px; /* Adjust size as needed */
+  // margin: 0 auto; /* Center the component */
+}
+
+.input-group .form-control {
+  text-align: center; /* Center the input text */
+  border: 1px #6c757d solid;
+  border-right: none;
+  border-left: none;
+}
+
+/* Hide the up/down arrows for number input */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
