@@ -1,4 +1,4 @@
-<div class="root_bg">
+<!-- <div class="root_bg">
   <app-header></app-header>
   <div class="my-4">
     <router-outlet></router-outlet>
@@ -6,4 +6,16 @@
   <div class="mt-auto">
     <app-footer></app-footer>
   </div>
+</div> -->
+
+<div class="root_bg">
+  <ng-container *ngIf="!isLoginPage">
+    <app-header></app-header>
+  </ng-container>
+  <div [ngClass]="checkLoginPage()">
+    <router-outlet></router-outlet>
+  </div>
+  <ng-container *ngIf="!isLoginPage">
+    <app-footer></app-footer>
+  </ng-container>
 </div>

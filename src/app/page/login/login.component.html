@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-around align-items-center vh-100">
+
+  <div class="logo">
+    <img class="w-100" src="assets/image/file.png" alt="logo">
+  </div>
+
+  <div class="info-form">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1>Đăng nhập</h1>
+      <i (click)="goToHome()" class="fa-solid fa-x"></i>
+    </div>
+
+
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="input-container">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter your username"
+          required
+        />
+        <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
+          <small *ngIf="loginForm.get('username')?.errors?.['required']">Username is required.</small>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          required
+        />
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          <small class="text-danger" *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
+          <small class="text-danger" *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+        </div>
+      </div>
+
+      <button class="submit-button global-button" type="submit" [disabled]="loginForm.invalid">Đăng nhập</button>
+    </form>
+
+
+    <div class="mt-2">Chưa có tài khoản? Đăng ký tại đây</div>
+  </div>
+
+</div>

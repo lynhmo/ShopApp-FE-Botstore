@@ -14,19 +14,22 @@ import { FormsModule } from '@angular/forms';
 import { PanigationComponent } from './component/panigation/panigation.component';
 import { DetailProductComponent } from './page/detail-product/detail-product.component';
 import { NumberInputComponent } from './component/number-input/number-input.component';
-
+import { LoginComponent } from './page/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NotfoundComponent } from './page/notfound/notfound.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'detail', component: DetailProductComponent },
+  { path: 'detail', component: DetailProductComponent }, //:id them vao path
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];
 
 
 @NgModule({
   declarations: [
-
     HomeComponent,
     ProductComponent,
     HeaderComponent,
@@ -38,12 +41,15 @@ const routes: Routes = [
     SideBarComponent,
     PanigationComponent,
     DetailProductComponent,
-    NumberInputComponent
+    NumberInputComponent,
+    LoginComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes), // Configure the router
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[SliderComponent],
   providers: [],
