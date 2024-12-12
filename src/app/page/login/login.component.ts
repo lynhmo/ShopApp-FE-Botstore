@@ -11,23 +11,46 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-
+  isResgisterForm: boolean = false;
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      retypePassword: ['']
     });
   }
-
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log('Form Submitted', this.loginForm.value);
+    if (!this.isResgisterForm) {
+      if (this.loginForm.valid) {
+        console.log('Login form Submitted', this.loginForm.value);
+        return
+      }
+      console.log("FAIL LOGIN");
+    } else {
+      const password:string = this.loginForm.get('retypePassword')?.value;
+      const retypePassword:string = this.loginForm.get('password')?.value;
+
+      if (retypePassword == password) {
+        console.log('Register form Submitted', this.loginForm.value);
+        return
+      }
+      console.log("Fail REGISTER");
     }
   }
 
-  goToHome() {
+  goToHome(): void {
     this.router.navigate(['']);
   }
+
+  openRegister(): void {
+    this.isResgisterForm = true
+  }
+
+  openLogin(): void {
+    this.isResgisterForm = false
+  }
+
+
 }
