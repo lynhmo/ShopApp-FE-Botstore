@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-between align-items-center rounded shadow p-3 bg-white">
+  <!-- Stage 1 -->
+  <div class="text-center d-flex">
+
+    <div class="circle" *ngIf="!isStage1Done" [ngClass]="{'inactive-circle': !stage1, 'active-circle': stage1}">1</div>
+    <div class="circle done-circle" *ngIf="isStage1Done"><i class="fa-solid fa-check"></i></div>
+
+    <div class="d-flex flex-column align-items-start mt-1 ms-2">
+      <span class="mb-0">20.000 VND</span>
+      <span class="small-text">Dưới 200.000 VND</span>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="flex-fill text-center">
+    <hr [ngClass]="{'progress-bar-active':isStage2Done}" />
+  </div>
+
+  <!-- Stage 2 -->
+  <div class="text-center d-flex">
+
+    <div class="circle" *ngIf="!isStage2Done" [ngClass]="{'inactive-circle': !stage2, 'active-circle': stage2}">2</div>
+    <div class="circle done-circle" *ngIf="isStage2Done"><i class="fa-solid fa-check"></i></div>
+
+    <div class="d-flex flex-column align-items-start mt-1 ms-2">
+      <span class="mb-0">10.000 VND</span>
+      <span class="small-text">Từ 200.000 VND đến 500.000 VND</span>
+    </div>
+
+  </div>
+
+  <!-- Divider -->
+  <div class="flex-fill text-center">
+    <hr [ngClass]="{'progress-bar-active':isStage3Done}" />
+  </div>
+
+  <!-- Stage 3 -->
+  <div class="text-center d-flex" >
+
+    <div class="circle" *ngIf="!isStage3Done" [ngClass]="{'inactive-circle': !stage3, 'active-circle': stage3}">3</div>
+    <div class="circle done-circle" *ngIf="isStage3Done"><i class="fa-solid fa-check"></i></div>
+
+    <div class="d-flex flex-column align-items-start mt-1 ms-2">
+      <span class="mb-0">Free ship</span>
+      <span class="small-text">Trên 500.000 VND</span>
+    </div>
+  </div>
+</div>
