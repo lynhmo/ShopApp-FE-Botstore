@@ -1,0 +1,70 @@
+<div class="cart-container">
+  <div class="cart-left-container">
+    <h4>Phí giao hàng</h4>
+    <br>
+    <!-- GIAM GIA -->
+    <app-giam-gia></app-giam-gia>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar shadow rounded-4">
+      <div class="d-flex justify-content-start align-items-center" style="width: 45%;">
+        <input id="checkall" class="form-check-input mt-0" type="checkbox" value="">
+        <label class="ms-2" for="checkall"> Tất cả: (2 sản phẩm)</label>
+      </div>
+      <div id="status-bar-right" style="width: 55%;">
+        <div>Đơn giá</div>
+        <div>Số lượng</div>
+        <div>Thành tiền</div>
+        <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+      </div>
+    </div>
+
+    <!-- PRODUCT -->
+    <div class="product-grid">
+      <!-- Tag -->
+      <div class="product-tag shadow rounded-4">
+        <div class="left">
+          <div class="d-flex justify-content-start align-items-center">
+            <input id="checkall" class="form-check-input mt-0" type="checkbox" value="">
+            <img class="image-product" src="assets/image/slider/slider1.jpg" alt="tag">
+          </div>
+          <span class="product-name">Product Name</span>
+        </div>
+        <div class="right">
+          <div>1.000.000 VNĐ</div>
+          <div><number-input></number-input></div>
+          <div>1.000.000 VNĐ</div>
+          <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cart-right-container">
+
+    <h4>Địa chỉ</h4>
+    <br>
+
+
+    <div id="cart-right-child" class="address-tag shadow">address</div>
+    <div id="cart-right-child" class="shipping-cal shadow">
+      <div class="d-flex flex-column">
+        <div class="d-flex justify-content-between">
+          <span class="">Tạm tính</span>
+          <span class="fw-bold">100000 Vnđ</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span class="">Phí giao hàng</span>
+          <span class="fw-bold">10000 vnđ</span>
+        </div>
+      </div>
+    </div>
+    <div id="cart-right-child" class="shadow d-flex flex-column">
+      <span class="">Tổng tiền</span>
+      <span class="money-total">200.000 VND</span>
+      <span class="small-text">(Đã bao gồm VAT nếu có)</span>
+    </div>
+    <!-- <div id="cart-right-child" class="shadow">btn</div> -->
+    <button id="addCart" class="button-product">Thanh toán</button>
+
+  </div>
+</div>

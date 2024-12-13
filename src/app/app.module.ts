@@ -17,12 +17,17 @@ import { NumberInputComponent } from './component/number-input/number-input.comp
 import { LoginComponent } from './page/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NotfoundComponent } from './page/notfound/notfound.component';
+import { CartComponent } from './page/cart/cart.component';
+import { GiamGiaComponent } from './component/giam-gia/giam-gia.component';
+import { UserPageComponent } from './page/user-page/user-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'detail', component: DetailProductComponent }, //:id them vao path
   { path: 'login', component: LoginComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'user', component: UserPageComponent }, //:id them vao path
   { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];
@@ -43,7 +48,10 @@ const routes: Routes = [
     DetailProductComponent,
     NumberInputComponent,
     LoginComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    CartComponent,
+    GiamGiaComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,
