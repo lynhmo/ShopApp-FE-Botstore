@@ -51,8 +51,15 @@ export class LoginComponent {
           complete: () => {
           },
           error: (error: any) => {
-            const errorResponse = error.error as ErrorResponse;
-            this.showToast(`Error: ${errorResponse.errorMsg}`, 'error');
+            if (error.status === 0) {
+              // Backend is down or unreachable
+              this.showToast('Backend is unreachable. Please try again later.', 'error');
+            } else {
+              // Handle other errors
+              const errorResponse = error.error as ErrorResponse;
+              const errorMsg = errorResponse?.errorMsg || 'An unknown error occurred.';
+              this.showToast(`Error: ${errorMsg}`, 'error');
+            }
           }
         })
       }

@@ -23,6 +23,9 @@ export class TokenService {
   setToken(token: string): void {
     this.localStorage?.setItem(this.TOKEN_KEY, token);
   }
+
+
+
   getUserId(): number {
     let token = this.getToken();
     if (!token) {
@@ -37,9 +40,22 @@ export class TokenService {
     this.localStorage?.removeItem(this.TOKEN_KEY);
   }
   isTokenExpired(): boolean {
-    if (this.getToken() == null) {
+    if (this.getToken() == '') {
       return false;
     }
     return this.jwtHelperService.isTokenExpired(this.getToken()!);
+  }
+
+  isTokenExpiredV2(): boolean {
+    const decodedToken = this.jwtHelperService.decodeToken(this.getToken());
+    const exp = decodedToken.exp;
+    if (exp == null || exp == '') {
+      return false
+    }
+    const remainTime = exp - Math.floor(Date.now() / 1000)
+    if (remainTime > 0) {
+      return true
+    }
+    return false
   }
 }

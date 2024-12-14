@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Register } from '../model/register';
 
 
 const baseAuthUrl = 'http://localhost:2345/api/v1/users';

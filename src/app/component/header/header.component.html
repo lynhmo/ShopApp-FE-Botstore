@@ -1,6 +1,7 @@
 <div class="header_wapper d-flex justify-content-between">
   <div class="w-25">
-    <img class="logo" src="../../../assets/image/file.png" alt="logo" routerLink="" routerLinkActive="active" style="cursor: pointer;">
+    <img class="logo" src="../../../assets/image/file.png" alt="logo" routerLink="" routerLinkActive="active"
+      style="cursor: pointer;">
   </div>
   <div class="w-50 px-5">
     <form class="custom-search-bar d-flex">
@@ -12,11 +13,44 @@
     </form>
   </div>
   <div class="w-25 d-flex justify-content-end">
-    <div class="profile" routerLink="/user" routerLinkActive="active">
+
+    <!-- PROFILE nếu đã login là token tồn tại ở trong local storeage -->
+    <!-- <div class="profile" routerLink="/user" routerLinkActive="active" *ngIf="isTokenExisted()">
+      <i class="fa-solid fa-user"></i>
+    </div> -->
+
+    <div class="profile dropdown" *ngIf="isTokenExisted()">
+      <a
+        class="dropdown-toggle"
+        style="color: white;"
+        href="/user"
+        role="button"
+        id="dropdownMenuLink"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-user"></i>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+        <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
+        <li><a class="dropdown-item" routerLink="/logout">Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- Chuyển định hướng sang login nếu mà không có token -->
+    <div class="profile" routerLink="/login" routerLinkActive="active" *ngIf="!isTokenExisted()">
       <i class="fa-solid fa-user"></i>
     </div>
-    <div class="profile" routerLink="/cart" routerLinkActive="active">
+
+    <div class="profile position-relative" routerLink="/cart" routerLinkActive="active" *ngIf="isTokenExisted()">
       <i class="fa-solid fa-cart-shopping"></i>
+
+      <span style="font-size: small;"
+        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        99+
+      </span>
+
     </div>
   </div>
 </div>
