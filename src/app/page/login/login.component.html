@@ -44,16 +44,8 @@
         <input id="password" type="password" formControlName="password" placeholder="Enter your password" required />
       </div>
 
-      <div class="input-container"  *ngIf="isResgisterForm">
-        <div class="d-flex">
-          <label for="retypePassword">Retype password</label>
-          <!-- <div class="text-danger" style="margin-top: 1px; margin-left: 5px;"
-            *ngIf="loginForm.get('retypePassword')?.touched && loginForm.get('retypePassword')?.invalid">
-            <small *ngIf="loginForm.get('retypePassword')?.errors?.['required']">- retype password is required.</small>
-            <small *ngIf="loginForm.get('retypePassword')?.errors?.['minlength']">- retype password must be at least 6
-              characters long.</small>
-          </div> -->
-        </div>
+      <div class="input-container" *ngIf="isResgisterForm">
+        <label for="retypePassword">Retype password</label>
         <input id="retypePassword" type="password" formControlName="retypePassword"
           placeholder="Enter your retype password" required />
       </div>
@@ -68,3 +60,7 @@
   </div>
 
 </div>
+
+
+
+

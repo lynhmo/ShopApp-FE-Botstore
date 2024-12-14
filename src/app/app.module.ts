@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomeComponent } from './page/home/home.component';
@@ -20,6 +20,8 @@ import { NotfoundComponent } from './page/notfound/notfound.component';
 import { CartComponent } from './page/cart/cart.component';
 import { GiamGiaComponent } from './component/giam-gia/giam-gia.component';
 import { UserPageComponent } from './page/user-page/user-page.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptorService } from './jwt/jwt.interceptor';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +33,7 @@ const routes: Routes = [
   { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];
+
 
 
 @NgModule({
@@ -57,10 +60,18 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes), // Configure the router
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  exports:[SliderComponent],
-  providers: [],
+  exports: [SliderComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true,
+    },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
