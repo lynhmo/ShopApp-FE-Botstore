@@ -27,13 +27,17 @@ export class HeaderComponent implements OnInit{
   }
 
 
-  isDropdownVisible = false;
 
-  showDropdown(): void {
-    this.isDropdownVisible = true;
+  isDropdownOpen = false;
+
+  toggleDropdown(event: Event): void {
+    event.stopPropagation();
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  hideDropdown(): void {
-    this.isDropdownVisible = false;
-  }
+
+
+
+
+
 }

@@ -15,27 +15,8 @@
   <div class="w-25 d-flex justify-content-end">
 
     <!-- PROFILE nếu đã login là token tồn tại ở trong local storeage -->
-    <!-- <div class="profile" routerLink="/user" routerLinkActive="active" *ngIf="isTokenExisted()">
+    <div class="profile" routerLink="/user" routerLinkActive="active" *ngIf="isTokenExisted()">
       <i class="fa-solid fa-user"></i>
-    </div> -->
-
-    <div class="profile dropdown" *ngIf="isTokenExisted()">
-      <a
-        class="dropdown-toggle"
-        style="color: white;"
-        href="/user"
-        role="button"
-        id="dropdownMenuLink"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <i class="fa-solid fa-user"></i>
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
-        <li><a class="dropdown-item" routerLink="/settings">Settings</a></li>
-        <li><a class="dropdown-item" routerLink="/logout">Logout</a></li>
-      </ul>
     </div>
 
     <!-- Chuyển định hướng sang login nếu mà không có token -->
@@ -52,6 +33,25 @@
       </span>
 
     </div>
+
+
+
+    <!-- app.component.html -->
+    <div  *ngIf="isTokenExisted()" class="dropdown" (click)="toggleDropdown($event)">
+      <button class="btn profile text-white" type="button" id="dropdownMenuButton" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href="#">Item 1</a></li>
+        <li><a class="dropdown-item" href="#">Item 2</a></li>
+        <li><a class="dropdown-item" href="#">Item 3</a></li>
+      </ul>
+    </div>
+
+
+
+
+
   </div>
 </div>
 <nav class="nav_bar">

@@ -106,7 +106,10 @@
   }
 }
 
+.dropdown-menu {
+  display: none;
+}
 
-.dropdown:hover .dropdown-menu {
+.dropdown-menu.show {
   display: block;
 }
