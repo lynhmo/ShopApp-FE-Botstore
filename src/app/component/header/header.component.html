@@ -27,9 +27,9 @@
     <div class="profile position-relative" routerLink="/cart" routerLinkActive="active" *ngIf="isTokenExisted()">
       <i class="fa-solid fa-cart-shopping"></i>
 
-      <span style="font-size: small;"
-        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-        99+
+      <span style="font-size: 14px; padding: 4px;"
+        class="position-absolute top-10 start-90 translate-middle badge rounded-pill bg-danger">
+          {{cartItems()}}
       </span>
 
     </div>
@@ -37,14 +37,18 @@
 
 
     <!-- app.component.html -->
-    <div  *ngIf="isTokenExisted()" class="dropdown" (click)="toggleDropdown($event)">
+    <div *ngIf="isTokenExisted()" class="dropdown" (click)="toggleDropdown($event)">
       <button class="btn profile text-white" type="button" id="dropdownMenuButton" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
       </button>
       <ul class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="#">Item 1</a></li>
-        <li><a class="dropdown-item" href="#">Item 2</a></li>
-        <li><a class="dropdown-item" href="#">Item 3</a></li>
+        <li>
+          <div class="dropdown-item" routerLink="/user" routerLinkActive="active">Profile</div>
+        </li>
+        <li *ngIf="isAdmin()"><a class="dropdown-item" routerLink="/admin" routerLinkActive="active">Admin</a></li>
+        <li>
+          <div class="dropdown-item" (click)="logOut()" routerLink="/login" routerLinkActive="active">Logout</div>
+        </li>
       </ul>
     </div>
 

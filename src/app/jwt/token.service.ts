@@ -39,11 +39,25 @@ export class TokenService {
   removeToken(): void {
     this.localStorage?.removeItem(this.TOKEN_KEY);
   }
+
   isTokenExpired(): boolean {
     if (this.getToken() == '') {
       return false;
     }
     return this.jwtHelperService.isTokenExpired(this.getToken()!);
+  }
+
+  isAdmin() {
+    let token = this.getToken();
+    if (!token) {
+      return 0;
+    }
+    let userObject = this.jwtHelperService.decodeToken(token);
+    let role = 'role' in userObject ? userObject['role'] : 'USER';
+    if (role == 'ADMIN') {
+      return true
+    }
+    return false
   }
 
   isTokenExpiredV2(): boolean {
