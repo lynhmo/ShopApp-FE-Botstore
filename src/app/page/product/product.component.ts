@@ -69,6 +69,9 @@ export class ProductComponent {
     }
   ]
 
-
+  currentPage = 1;
+  onPageChange(newPage: number): void {
+    this.currentPage = newPage; // Update currentPage in the parent
+  }
 
 }

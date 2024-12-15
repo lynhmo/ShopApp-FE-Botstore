@@ -16,10 +16,16 @@
       <span>{{ priceRange | currency:'VND' }}</span>
     </div>
     <div class="slider-container">
-      <input type="range" class="form-range" id="priceRange" min="0" max="1000000" step="50000" [(ngModel)]="priceRange"
-        (input)="onPriceChange()" [style.background]="
-          'linear-gradient(90deg, #0d6efd ' + pricePercentage + '%, #e9ecef 0%)'
-        ">
+      <input
+      type="range"
+      class="form-range"
+      id="priceRange"
+      min="0"
+      max="1000000"
+      step="50000"
+      [(ngModel)]="priceRange"
+      (input)="onPriceChange()"
+      >
     </div>
   </div>
 
