@@ -7,7 +7,7 @@
 
   <div class="product-grid flex-grow-1">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 product-card-grid">
-      <div class="col" *ngFor="let product of products">
+      <div class="col" *ngFor="let product of products" style="width: 259px; height: 334px;">
         <product-card [product]="product"></product-card>
       </div>
     </div>

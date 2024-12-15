@@ -10,6 +10,8 @@ export class ProductCardComponent  implements OnInit {
   stars: number[] = [];
 
   ngOnInit(): void {
+    console.log(this.product);
+
     // const fullStars = Math.floor(this.product.rating);
     // this.stars = Array(fullStars).fill(0);
   }
