@@ -28,10 +28,8 @@ export class ProductComponent implements OnInit {
   loadProducts(): void {
     this.productService.getAllPageable(this.currentPage - 1, 8).subscribe(
       data => {
-        console.log(data);
-        console.log(data.content);
         this.products = data.content;
-        this.totalPages=data.totalPages
+        this.totalPages = data.totalPages
       }
     );
   }

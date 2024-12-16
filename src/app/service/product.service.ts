@@ -17,27 +17,32 @@ export class ProductService {
   ) { }
 
 
-  getAllPageable(page: number, size: number, disable?: number): Observable<PageableResponse<Product>> {
-    // Build query parameters
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
+  getProduct(productId: number): Observable<Product> {
+    return this.http.get<Product>(this.apiProduct + "/" + productId);
+  }
 
-    if (disable) {
-      params = params.set('disable', disable);
-    }
+
+getAllPageable(page: number, size: number, disable ?: number): Observable < PageableResponse < Product >> {
+  // Build query parameters
+  let params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', size.toString());
+
+  if(disable) {
+    params = params.set('disable', disable);
+  }
 
     // return this.http.get<PageableResponse<Product>>(this.apiProduct, { params });
     return this.http.get<PageableResponse<Product>>(this.apiProduct, { params }).pipe(
-      map(response => {
-        // Convert byte array to base64 string for each product thumbnail
-        response.content.forEach(product => {
-          if (product.thumbnail && !product.thumbnail.startsWith('data:image')) {
-            product.thumbnail = `data:image/jpeg;base64,${product.thumbnail}`; // Adjust MIME type if needed
-          }
-        });
-        return response;
-      })
-    );
-  }
+    map(response => {
+      // Convert byte array to base64 string for each product thumbnail
+      response.content.forEach(product => {
+        if (product.thumbnail && !product.thumbnail.startsWith('data:image')) {
+          product.thumbnail = `data:image/jpeg;base64,${product.thumbnail}`; // Adjust MIME type if needed
+        }
+      });
+      return response;
+    })
+  );
+}
 }

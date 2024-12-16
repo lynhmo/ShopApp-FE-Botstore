@@ -1,7 +1,6 @@
 export interface Product {
-  discount: number,
-  stock: number,
-  category: string,
+  // discount: number,
+  // stock: number,
   createAt: string,
   updateAt: string,
   id: number,
