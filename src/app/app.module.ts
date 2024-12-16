@@ -26,7 +26,7 @@ import { JwtInterceptorService } from './jwt/jwt.interceptor';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'detail', component: DetailProductComponent }, //:id them vao path
+  { path: 'detail-product/:productID', component: DetailProductComponent }, //:id them vao path
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent },
   { path: 'user', component: UserPageComponent }, //:id them vao path
