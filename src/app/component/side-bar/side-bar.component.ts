@@ -15,10 +15,10 @@ export class SideBarComponent {
   }
 
   onCategoryChange(category: string) {
-    console.log(`Category changed: ${category}`);
+    // console.log(`Category changed: ${category}`);
   }
 
   onPriceChange() {
-    console.log(`Selected price: ${this.priceRange}`);
+    // console.log(`Selected price: ${this.priceRange}`);
   }
 }

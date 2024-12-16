@@ -23,6 +23,7 @@ export class DetailProductComponent implements OnInit {
   productName!: string
   categoryName!: string
   price!: number
+  inputQuantity!:number
 
   constructor(
     private route: ActivatedRoute,
@@ -39,9 +40,6 @@ export class DetailProductComponent implements OnInit {
         this.loadProductDetails(); // Call API to fetch product details
       }
     });
-
-
-
   }
 
   loadProductDetails(): void {
@@ -86,5 +84,11 @@ export class DetailProductComponent implements OnInit {
 
   get formattedPrice(): string {
     return this.formatPrice(this.price);
+  }
+
+
+  // Số lượng mua
+  receiveInputData(data: number){
+    this.inputQuantity = data
   }
 }

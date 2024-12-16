@@ -21,7 +21,7 @@ export class ProductCardComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.product);
+    // console.log(this.product);
     // const fullStars = Math.floor(this.product.rating);
     // this.stars = Array(fullStars).fill(0);
   }
