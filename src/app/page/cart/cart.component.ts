@@ -1,9 +1,7 @@
 import { OrderDetail } from './../../model/OrderDetail';
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
 import { forkJoin, map } from 'rxjs';
-import { TokenService } from 'src/app/jwt/token.service';
 import { Order } from 'src/app/model/Order';
 import { OrderDetailProduct } from 'src/app/model/OrderDetailProduct';
 import { Product } from 'src/app/model/product.model';
@@ -11,7 +9,6 @@ import { UpdateOrderDetails } from 'src/app/model/UpdateOrderDetails';
 import { OrderService } from 'src/app/service/order.service';
 import { OrderDetailService } from 'src/app/service/orderDetail.service';
 import { ProductService } from 'src/app/service/product.service';
-import { ToastPopupService } from 'src/app/service/toast-popup.service';
 
 
 @Component({
@@ -20,6 +17,7 @@ import { ToastPopupService } from 'src/app/service/toast-popup.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+
   private readonly PENDING_ORDER = 'pending_order';
 
 
@@ -27,10 +25,12 @@ export class CartComponent implements OnInit {
   pendingOrderId: number | null = null;
   inputQuantity!: number
   penddingOrder!: Order
+  reducedShipCost!: number
+  totalMoney: number = 0
 
   listProduct!: Product[]
   listOrderDetail!: OrderDetailProduct[]
-
+  isLoading: boolean = false
 
   constructor(
     private orderDetailService: OrderDetailService,
@@ -84,7 +84,6 @@ export class CartComponent implements OnInit {
                 orderDetails.product.thumbnail = `data:image/jpeg;base64,${orderDetails.product.thumbnail}`;
               }
             })
-            console.log('Mapped Order Details:', this.listOrderDetail);
           },
           error: (err) => console.error('Error fetching product details:', err)
         });
@@ -100,10 +99,15 @@ export class CartComponent implements OnInit {
     this.orderService.getOrderById(this.pendingOrderId).subscribe({
       next: (order) => {
         this.penddingOrder = order
+        this.totalMoney = order.total_money
       }
     })
   }
 
+
+  getReducedShipCost(data: number) {
+    this.reducedShipCost = data
+  }
 
   // Số lượng mua
   receiveInputData(data: number, orderDetail: OrderDetailProduct) {
@@ -118,7 +122,11 @@ export class CartComponent implements OnInit {
     }
     this.orderDetailService.updateOrderDetails(orderDetail.id, updatedOrderDetail).subscribe({
       next: (response) => {
+        this.isLoading = true
         this.refreshOrder()
+      },
+      complete: () => {
+        this.isLoading = false
       },
       error: (err) => {
         console.error('Error updating OrderDetail:', err);

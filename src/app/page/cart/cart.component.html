@@ -3,7 +3,7 @@
     <h4>Phí giao hàng</h4>
     <br>
     <!-- GIAM GIA -->
-    <app-giam-gia></app-giam-gia>
+    <app-giam-gia [totalMoney]="totalMoney" (reduceShip)="getReducedShipCost($event)"></app-giam-gia>
 
     <!-- STATUS BAR -->
     <div class="status-bar shadow rounded-4">
@@ -51,17 +51,17 @@
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-between">
           <span class="">Tạm tính</span>
-          <span class="fw-bold">{{formatToVietnameseDong(penddingOrder.total_money)}}</span>
+          <span class="fw-bold">{{formatToVietnameseDong(totalMoney)}}</span>
         </div>
         <div class="d-flex justify-content-between">
           <span class="">Phí giao hàng</span>
-          <span class="fw-bold">{{formatToVietnameseDong(penddingOrder.total_money)}}</span>
+          <span class="fw-bold">{{formatToVietnameseDong(reducedShipCost)}}</span>
         </div>
       </div>
     </div>
     <div id="cart-right-child" class="shadow d-flex flex-column">
       <span class="">Tổng tiền</span>
-      <span class="money-total">{{formatToVietnameseDong(penddingOrder.total_money)}}</span>
+      <span class="money-total">{{formatToVietnameseDong(totalMoney - reducedShipCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
     <!-- <div id="cart-right-child" class="shadow">btn</div> -->
