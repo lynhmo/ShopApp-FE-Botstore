@@ -22,14 +22,15 @@ import { GiamGiaComponent } from './component/giam-gia/giam-gia.component';
 import { UserPageComponent } from './page/user-page/user-page.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptorService } from './jwt/jwt.interceptor';
+import { authGuard } from './jwt/AuthGuard.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'detail-product/:productID', component: DetailProductComponent }, //:id them vao path
   { path: 'login', component: LoginComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'user', component: UserPageComponent }, //:id them vao path
+  { path: 'cart', component: CartComponent, canActivate: [authGuard] },
+  { path: 'user', component: UserPageComponent, canActivate: [authGuard]  }, //:id them vao path
   { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];

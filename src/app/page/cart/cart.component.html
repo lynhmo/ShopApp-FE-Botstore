@@ -8,7 +8,6 @@
     <!-- STATUS BAR -->
     <div class="status-bar shadow rounded-4">
       <div class="d-flex justify-content-start align-items-center" style="width: 45%;">
-        <input id="checkall" class="form-check-input mt-0" type="checkbox" value="">
         <label class="ms-2" for="checkall"> Tất cả: (2 sản phẩm)</label>
       </div>
       <div id="status-bar-right" style="width: 55%;">
@@ -22,18 +21,20 @@
     <!-- PRODUCT -->
     <div class="product-grid">
       <!-- Tag -->
-      <div class="product-tag shadow rounded-4">
+      <div class="product-tag shadow rounded-4" *ngFor="let product of listOrderDetail">
         <div class="left">
           <div class="d-flex justify-content-start align-items-center">
-            <input id="checkall" class="form-check-input mt-0" type="checkbox" value="">
-            <img class="image-product" src="assets/image/slider/slider1.jpg" alt="tag">
+            <img class="image-product" [src]="product.product.thumbnail" alt="tag">
           </div>
-          <span class="product-name">Product Name</span>
+          <span class="product-name">{{product.product.name}}</span>
         </div>
         <div class="right">
-          <div>1.000.000 VNĐ</div>
-          <div><number-input></number-input></div>
-          <div>1.000.000 VNĐ</div>
+          <div>{{ formatToVietnameseDong(product.price) }}</div>
+          <div>
+            <number-input (inputValue)="receiveInputData($event,product)" [numberValue]="product.number_of_products">
+            </number-input>
+          </div>
+          <div>{{ formatToVietnameseDong(product.total_money) }}</div>
           <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
         </div>
       </div>
@@ -50,17 +51,17 @@
       <div class="d-flex flex-column">
         <div class="d-flex justify-content-between">
           <span class="">Tạm tính</span>
-          <span class="fw-bold">100000 Vnđ</span>
+          <span class="fw-bold">{{formatToVietnameseDong(penddingOrder.total_money)}}</span>
         </div>
         <div class="d-flex justify-content-between">
           <span class="">Phí giao hàng</span>
-          <span class="fw-bold">10000 vnđ</span>
+          <span class="fw-bold">{{formatToVietnameseDong(penddingOrder.total_money)}}</span>
         </div>
       </div>
     </div>
     <div id="cart-right-child" class="shadow d-flex flex-column">
       <span class="">Tổng tiền</span>
-      <span class="money-total">200.000 VND</span>
+      <span class="money-total">{{formatToVietnameseDong(penddingOrder.total_money)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
     <!-- <div id="cart-right-child" class="shadow">btn</div> -->

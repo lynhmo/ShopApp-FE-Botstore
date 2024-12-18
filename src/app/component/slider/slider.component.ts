@@ -16,9 +16,9 @@ import { SliderInterface } from './type/slider.interface';
 })
 export class SliderComponent implements OnInit, OnDestroy {
   slides: SliderInterface[] = [
-    { url: 'assets/image/slider/slider1.jpg', title: 'slider1' },
     { url: 'assets/image/slider/slider2.jpg', title: 'slider2' },
     { url: 'assets/image/slider/slider3.jpg', title: 'slider3' },
+    { url: 'assets/image/slider/slider4.jpg', title: 'slider4' },
   ];
 
   currentIndex: number = 0;
