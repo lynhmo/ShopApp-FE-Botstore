@@ -19,17 +19,21 @@ import { ProductService } from 'src/app/service/product.service';
 export class CartComponent implements OnInit {
 
   private readonly PENDING_ORDER = 'pending_order';
-
-
   localStorage?: Storage
+
   pendingOrderId: number | null = null;
-  inputQuantity!: number
   penddingOrder!: Order
-  reducedShipCost!: number
-  totalMoney: number = 0
 
   listProduct!: Product[]
   listOrderDetail!: OrderDetailProduct[]
+
+
+  inputQuantity!: number
+
+  totalMoney: number = 0
+  reducedShipCost: number = 0
+  shippedCost: number = 0
+
   isLoading: boolean = false
 
   constructor(
@@ -100,13 +104,9 @@ export class CartComponent implements OnInit {
       next: (order) => {
         this.penddingOrder = order
         this.totalMoney = order.total_money
+        this.updateStages(order.total_money)
       }
     })
-  }
-
-
-  getReducedShipCost(data: number) {
-    this.reducedShipCost = data
   }
 
   // Số lượng mua
@@ -136,5 +136,17 @@ export class CartComponent implements OnInit {
 
   formatToVietnameseDong(amount: number): string {
     return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
+
+
+
+  private updateStages(totalOrderMoney: number): void {
+    if (totalOrderMoney < 200000 && totalOrderMoney > 0) {
+      this.shippedCost = 20000
+    } else if (totalOrderMoney >= 200000 && totalOrderMoney <= 500000) {
+      this.shippedCost = 10000
+    } else if (totalOrderMoney > 500000) {
+      this.shippedCost = 0
+    }
   }
 }

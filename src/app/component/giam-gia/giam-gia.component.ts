@@ -6,7 +6,6 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
   styleUrls: ['./giam-gia.component.scss']
 })
 export class GiamGiaComponent implements OnChanges {
-  @Output() reduceShip = new EventEmitter<number>();
   @Input() totalMoney!: number;
 
   // Stage tracking
@@ -17,12 +16,7 @@ export class GiamGiaComponent implements OnChanges {
   currentStage: number = 1
 
   ngOnChanges(): void {
-    this.sendShipCost()
     this.updateStages()
-  }
-
-  sendShipCost() {
-    this.reduceShip.emit(this.shippedCost); // Emit the data
   }
 
   private updateStages(): void {

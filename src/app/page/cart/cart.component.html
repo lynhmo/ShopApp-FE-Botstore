@@ -3,7 +3,7 @@
     <h4>Phí giao hàng</h4>
     <br>
     <!-- GIAM GIA -->
-    <app-giam-gia [totalMoney]="totalMoney" (reduceShip)="getReducedShipCost($event)"></app-giam-gia>
+    <app-giam-gia [totalMoney]="totalMoney"></app-giam-gia>
 
     <!-- STATUS BAR -->
     <div class="status-bar shadow rounded-4">
@@ -14,7 +14,7 @@
         <div>Đơn giá</div>
         <div>Số lượng</div>
         <div>Thành tiền</div>
-        <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+        <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer;"></i>
       </div>
     </div>
 
@@ -35,17 +35,14 @@
             </number-input>
           </div>
           <div>{{ formatToVietnameseDong(product.total_money) }}</div>
-          <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+          <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer;"></i>
         </div>
       </div>
     </div>
   </div>
   <div class="cart-right-container">
-
     <h4>Địa chỉ</h4>
     <br>
-
-
     <div id="cart-right-child" class="address-tag shadow">address</div>
     <div id="cart-right-child" class="shipping-cal shadow">
       <div class="d-flex flex-column">
@@ -55,16 +52,15 @@
         </div>
         <div class="d-flex justify-content-between">
           <span class="">Phí giao hàng</span>
-          <span class="fw-bold">{{formatToVietnameseDong(reducedShipCost)}}</span>
+          <span class="fw-bold">{{formatToVietnameseDong(shippedCost)}}</span>
         </div>
       </div>
     </div>
     <div id="cart-right-child" class="shadow d-flex flex-column">
       <span class="">Tổng tiền</span>
-      <span class="money-total">{{formatToVietnameseDong(totalMoney - reducedShipCost)}}</span>
+      <span class="money-total">{{formatToVietnameseDong(totalMoney - shippedCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
-    <!-- <div id="cart-right-child" class="shadow">btn</div> -->
     <button id="addCart" class="button-product">Thanh toán</button>
 
   </div>
