@@ -14,28 +14,28 @@
         <div>Đơn giá</div>
         <div>Số lượng</div>
         <div>Thành tiền</div>
-        <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer;"></i>
+        <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer;" (click)="deleteAllOrderDetail()"></i>
       </div>
     </div>
 
     <!-- PRODUCT -->
     <div class="product-grid">
       <!-- Tag -->
-      <div class="product-tag shadow rounded-4" *ngFor="let product of listOrderDetail">
+      <div class="product-tag shadow rounded-4" *ngFor="let orderDetails of listOrderDetail">
         <div class="left">
           <div class="d-flex justify-content-start align-items-center">
-            <img class="image-product" [src]="product.product.thumbnail" alt="tag">
+            <img class="image-product" [src]="orderDetails.product.thumbnail" alt="tag">
           </div>
-          <span class="product-name">{{product.product.name}}</span>
+          <span class="product-name">{{orderDetails.product.name}}</span>
         </div>
         <div class="right">
-          <div>{{ formatToVietnameseDong(product.price) }}</div>
+          <div>{{ formatToVietnameseDong(orderDetails.price) }}</div>
           <div>
-            <number-input (inputValue)="receiveInputData($event,product)" [numberValue]="product.number_of_products">
+            <number-input (inputValue)="receiveInputData($event,orderDetails)" [numberValue]="orderDetails.number_of_products">
             </number-input>
           </div>
-          <div>{{ formatToVietnameseDong(product.total_money) }}</div>
-          <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer;"></i>
+          <div>{{ formatToVietnameseDong(orderDetails.total_money) }}</div>
+          <i class="fa-solid fa-trash" style="color: #ff0000; cursor: pointer;" (click)="deleteOneOrderDetail(orderDetails.id)"></i>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
     </div>
     <div id="cart-right-child" class="shadow d-flex flex-column">
       <span class="">Tổng tiền</span>
-      <span class="money-total">{{formatToVietnameseDong(totalMoney - shippedCost)}}</span>
+      <span class="money-total">{{formatToVietnameseDong(totalMoney + shippedCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
     <button id="addCart" class="button-product">Thanh toán</button>

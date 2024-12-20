@@ -149,4 +149,38 @@ export class CartComponent implements OnInit {
       this.shippedCost = 0
     }
   }
+
+
+  deleteOneOrderDetail(orderDetailId: number) {
+    this.orderDetailService.deleteOneOrderDetail(orderDetailId).subscribe({
+      next: (response) => {
+        this.isLoading = true
+        this.refreshOrder()
+        window.location.reload();
+      },
+      complete: () => {
+        this.isLoading = false
+      },
+      error: (err) => {
+        console.error('Error deleting OrderDetail:', err);
+      },
+    });
+  }
+
+
+  deleteAllOrderDetail() {
+    this.orderDetailService.deleteAllOrderDetails(this.penddingOrder.id).subscribe({
+      next: (response) => {
+        this.isLoading = true
+        this.refreshOrder()
+        window.location.reload();
+      },
+      complete: () => {
+        this.isLoading = false
+      },
+      error: (err) => {
+        console.error('Error deleting OrderDetail:', err);
+      },
+    });
+  }
 }

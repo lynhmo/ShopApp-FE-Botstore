@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../env/enviroment';
 import { HttpClient } from '@angular/common/http';
-import { HttpUtilsService } from './http-utils.service';
 import { OrderDetail } from '../model/OrderDetail';
 import { PageableResponse } from '../model/PageableResponse';
-import { forkJoin, map, mergeMap, Observable } from 'rxjs';
-import { ProductService } from './product.service';
-import { OrderDetailProduct } from '../model/OrderDetailProduct';
+import { map, Observable } from 'rxjs';
 import { UpdateOrderDetails } from '../model/UpdateOrderDetails';
+import { SuccessResponse } from '../response/SuccessResponse';
 
 
 @Injectable({
@@ -36,4 +34,12 @@ export class OrderDetailService {
     );
   }
 
+
+  deleteOneOrderDetail(orderDetailId: number) {
+    return this.http.delete<SuccessResponse>(this.apiOrderDetail + "/" + orderDetailId);
+  }
+
+  deleteAllOrderDetails(orderId: number) {
+    return this.http.delete<SuccessResponse>(this.apiOrderDetail + "/order/" + orderId);
+  }
 }
