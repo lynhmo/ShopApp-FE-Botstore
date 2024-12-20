@@ -6,6 +6,7 @@ import { PageableResponse } from '../model/PageableResponse';
 import { map, Observable } from 'rxjs';
 import { UpdateOrderDetails } from '../model/UpdateOrderDetails';
 import { SuccessResponse } from '../response/SuccessResponse';
+import { AddProductToOrderRequest } from '../model/AddProductToOrderRequest';
 
 
 @Injectable({
@@ -23,6 +24,11 @@ export class OrderDetailService {
     return this.http.get<PageableResponse<OrderDetail>>(this.apiOrderDetail + "/order/" + orderId);
   }
 
+
+  // Thêm sản phẩm (thêm bản ghi orderdetail)
+  addOrderDetail(addProductToOrderRequest: AddProductToOrderRequest) {
+    return this.http.post<PageableResponse<OrderDetail>>(this.apiOrderDetail, addProductToOrderRequest);
+  }
 
   updateOrderDetails(orderId: number, updateProduct: UpdateOrderDetails) {
     return this.http.put<OrderDetail>(this.apiOrderDetail + "/" + orderId, updateProduct);

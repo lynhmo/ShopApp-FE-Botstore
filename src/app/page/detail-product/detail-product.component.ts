@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { OrderDetailService } from 'src/app/service/orderDetail.service';
+import { AddProductToOrderRequest } from './../../model/AddProductToOrderRequest';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/model/category';
 import { Product } from 'src/app/model/product.model';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-detail-product',
@@ -11,7 +14,10 @@ import { ProductService } from 'src/app/service/product.service';
   styleUrls: ['./detail-product.component.scss']
 })
 export class DetailProductComponent implements OnInit {
+  private readonly PENDING_ORDER = 'pending_order';
+  localStorage?: Storage
 
+  pendingOrderId: number | null = null;
   productId!: number; // ID extracted from URL
   product!: Product;  // Product details fetched from API
   isLoading = true;
@@ -23,13 +29,18 @@ export class DetailProductComponent implements OnInit {
   productName!: string
   categoryName!: string
   price!: number
-  inputQuantity!:number
+  inputQuantity: number = 1
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private productService: ProductService,
-    private categoryService: CategoryService
-  ) { }
+    private categoryService: CategoryService,
+    private orderDetailService: OrderDetailService,
+    @Inject(DOCUMENT) private document: Document,
+  ) {
+    this.localStorage = document.defaultView?.localStorage;
+  }
 
 
   ngOnInit(): void {
@@ -88,7 +99,36 @@ export class DetailProductComponent implements OnInit {
 
 
   // Số lượng mua
-  receiveInputData(data: number){
+  receiveInputData(data: number) {
     this.inputQuantity = data
+  }
+
+  getPendingOrderId(): void {
+    this.pendingOrderId = this.localStorage?.getItem(this.PENDING_ORDER)
+      ? Number(this.localStorage.getItem(this.PENDING_ORDER))
+      : null;
+  }
+
+
+  addToCart() {
+    this.getPendingOrderId()
+    if (this.pendingOrderId == null) {
+      this.router.navigate(['/login']);
+      throw new Error('Order ID is null');
+    }
+    const requestBody: AddProductToOrderRequest = {
+      order_id: this.pendingOrderId,
+      product_id: this.productId,
+      number_of_product: this.inputQuantity
+    }
+    this.orderDetailService.addOrderDetail(requestBody).subscribe({
+      next: (data) => {
+        console.log(data)
+      },
+      error: (err) => {
+        console.error('API Error:', err); // Log the error
+      }
+    })
+    window.location.reload();
   }
 }
