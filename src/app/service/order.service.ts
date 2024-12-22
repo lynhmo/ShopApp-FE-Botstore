@@ -12,7 +12,7 @@ import { TokenService } from '../jwt/token.service';
 })
 export class OrderService {
   private apiOrder = `${environment.apiBaseUrl}/orders`;
-  pendingOrderId!: number
+
   constructor(
     private http: HttpClient,
     private httpUtilsService: HttpUtilsService,
@@ -32,7 +32,6 @@ export class OrderService {
   getOrderById(orderId: Number): Observable<Order> {
     return this.http.get<Order>(this.apiOrder + "/" + orderId);
   }
-
 
 
   getPendingOrderIds(userId: number): Observable<number[]> {

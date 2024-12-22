@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomeComponent } from './page/home/home.component';
@@ -23,14 +23,16 @@ import { UserPageComponent } from './page/user-page/user-page.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptorService } from './jwt/jwt.interceptor';
 import { authGuard } from './jwt/AuthGuard.guard';
+import { PaymentComponent } from './page/payment/payment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'detail-product/:productID', component: DetailProductComponent }, //:id them vao path
+  { path: 'detail-product/:productID', component: DetailProductComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent, canActivate: [authGuard] },
-  { path: 'user', component: UserPageComponent, canActivate: [authGuard]  }, //:id them vao path
+  { path: 'user', component: UserPageComponent, canActivate: [authGuard] },
+  { path: 'payment', component: PaymentComponent, canActivate: [authGuard] },
   { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];
@@ -55,7 +57,8 @@ const routes: Routes = [
     NotfoundComponent,
     CartComponent,
     GiamGiaComponent,
-    UserPageComponent
+    UserPageComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
