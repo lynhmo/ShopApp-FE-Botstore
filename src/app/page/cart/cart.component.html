@@ -64,6 +64,7 @@
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
     <button *ngIf="listOrderDetail == null " id="addCart" class="button-product" disabled>Thanh toán disable</button>
-    <button *ngIf="listOrderDetail != null && listOrderDetail.length > 0" id="addCart" class="button-product" routerLink="/payment" routerLinkActive="active">Thanh toán</button>
+    <button *ngIf="listOrderDetail != null && listOrderDetail.length > 0" id="addCart" class="button-product"
+      routerLink="/payment" routerLinkActive="active" (click)="setSessionPayment()">Thanh toán</button>
   </div>
 </div>

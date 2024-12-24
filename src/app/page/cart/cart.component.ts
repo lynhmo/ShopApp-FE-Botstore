@@ -20,6 +20,7 @@ export class CartComponent implements OnInit {
 
   private readonly PENDING_ORDER = 'pending_order';
   localStorage?: Storage
+  sessionStorages?: Storage
 
   pendingOrderId: number | null = null;
   penddingOrder!: Order
@@ -43,8 +44,13 @@ export class CartComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document
   ) {
     this.localStorage = document.defaultView?.localStorage;
+
+    this.sessionStorages = document.defaultView?.sessionStorage;
   }
 
+  setSessionPayment() {
+    this.sessionStorages?.setItem('payment-status', 'false');
+  }
 
   ngOnInit(): void {
     this.refreshOrder()

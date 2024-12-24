@@ -24,15 +24,34 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptorService } from './jwt/jwt.interceptor';
 import { authGuard } from './jwt/AuthGuard.guard';
 import { PaymentComponent } from './page/payment/payment.component';
+import { OrderSuccessComponent } from './page/order-success/order-success.component';
+import { PaymentGuard } from './guard/payment.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'product', component: ProductComponent },
   { path: 'detail-product/:productID', component: DetailProductComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'cart', component: CartComponent, canActivate: [authGuard] },
-  { path: 'user', component: UserPageComponent, canActivate: [authGuard] },
-  { path: 'payment', component: PaymentComponent, canActivate: [authGuard] },
+  {
+    path: 'cart',
+    component: CartComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'user',
+    component: UserPageComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent,
+    canActivate: [authGuard, PaymentGuard]
+  },
+  {
+    path: 'order-success',
+    component: OrderSuccessComponent,
+    canActivate: [authGuard]
+  },
   { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
 ];
@@ -58,7 +77,8 @@ const routes: Routes = [
     CartComponent,
     GiamGiaComponent,
     UserPageComponent,
-    PaymentComponent
+    PaymentComponent,
+    OrderSuccessComponent
   ],
   imports: [
     BrowserModule,

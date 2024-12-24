@@ -6,6 +6,7 @@ import { Order } from '../model/Order';
 import { PageableResponse } from '../model/PageableResponse';
 import { map, Observable } from 'rxjs';
 import { TokenService } from '../jwt/token.service';
+import { SuccessResponse } from '../response/SuccessResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,16 @@ export class OrderService {
     return this.http.get<Order>(this.apiOrder + "/" + orderId);
   }
 
+
+  updateOrderStatus(orderId: number, userId: number, orderStatus: string): Observable<SuccessResponse> {
+    let body = {
+      orderId: orderId.toString(),
+      userId: userId.toString(),
+      orderStatus: orderStatus
+    }
+
+    return this.http.put<SuccessResponse>(this.apiOrder + "/status", body);
+  }
 
   getPendingOrderIds(userId: number): Observable<number[]> {
     return this.getAllPageable(0, 100, userId).pipe(

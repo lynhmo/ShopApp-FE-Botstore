@@ -6,19 +6,19 @@
       <b>Chọn phương thức giao hàng</b>
       <div class="shipping">
         <div>
-          <input type="radio" id="shipping1" name="shippingMethod" value="ghtk" checked>
+          <input type="radio" id="shipping1" name="shippingMethod" value="ghtk" checked [(ngModel)]="shippingMethod">
           <label for="shipping1"><span class="shipping-text">GHTK</span> Giao hàng tiết kiệm</label>
         </div>
         <div>
-          <input type="radio" id="shipping2" name="shippingMethod" value="bee">
+          <input type="radio" id="shipping2" name="shippingMethod" value="bee" [(ngModel)]="shippingMethod">
           <label for="shipping2"><span class="shipping-text">BEE</span> Giao hàng nhanh</label>
         </div>
         <div>
-          <input type="radio" id="shipping3" name="shippingMethod" value="xanhsm">
+          <input type="radio" id="shipping3" name="shippingMethod" value="xanhsm" [(ngModel)]="shippingMethod">
           <label for="shipping3"><span class="shipping-text">XANH SM</span> Giao hàng xanh</label>
         </div>
         <div>
-          <input type="radio" id="shipping4" name="shippingMethod" value="grab">
+          <input type="radio" id="shipping4" name="shippingMethod" value="grab" [(ngModel)]="shippingMethod">
           <label for="shipping4"><span class="shipping-text">GRAB</span> Giao hàng nhanh</label>
         </div>
       </div>
@@ -27,16 +27,19 @@
       <b>Chọn phương thức thanh toán</b>
       <div class="shipping">
         <div>
-          <input type="radio" id="payment1" name="paymentMethod" value="ghtk" checked>
-          <label for="payment1"><span class="shipping-text">Thanh toán khi nhận hàng</span> thanh toán bằng tiền mặt</label>
+          <input type="radio" id="payment1" name="paymentMethod" value="cash" [(ngModel)]="paymentMethod" checked>
+          <label for="payment1"><span class="shipping-text">Thanh toán khi nhận hàng</span> thanh toán bằng tiền
+            mặt</label>
         </div>
         <div>
-          <input type="radio" id="payment2" name="paymentMethod" value="1">
-          <label for="payment2"><span class="shipping-text">NASPAS</span> Thanh toán thẻ ATM ghi nợ nội địa qua MOMO</label>
+          <input type="radio" id="payment2" name="paymentMethod" value="1" [(ngModel)]="paymentMethod">
+          <label for="payment2"><span class="shipping-text">NASPAS</span> Thanh toán thẻ ATM ghi nợ nội địa qua
+            MOMO</label>
         </div>
         <div>
-          <input type="radio" id="payment3" name="paymentMethod" value="2">
-          <label for="payment3"><span class="shipping-text">CREDIT CARD</span> Thanh toán thẻ ATM ghi nợ quốc tế qua MOMO</label>
+          <input type="radio" id="payment3" name="paymentMethod" value="2" [(ngModel)]="paymentMethod">
+          <label for="payment3"><span class="shipping-text">CREDIT CARD</span> Thanh toán thẻ ATM ghi nợ quốc tế qua
+            MOMO</label>
         </div>
       </div>
     </div>
@@ -62,6 +65,6 @@
       <span class="money-total">{{formatToVietnameseDong(totalMoney + shippedCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
-    <button id="addCart" class="button-product" routerLink="/payment" routerLinkActive="active">Thanh toán</button>
+    <button id="addCart" class="button-product" (click)="pay()">Thanh toán</button>
   </div>
 </div>
