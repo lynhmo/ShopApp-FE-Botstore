@@ -9,13 +9,13 @@
 </div> -->
 
 <div class="root_bg">
-  <ng-container *ngIf="!isLoginPage">
+  <ng-container *ngIf="!isLoginPage && !isAdminPage">
     <app-header></app-header>
   </ng-container>
   <div [ngClass]="checkLoginPage()">
     <router-outlet></router-outlet>
   </div>
-  <ng-container *ngIf="!isLoginPage">
+  <ng-container *ngIf="!isLoginPage && !isAdminPage">
     <div class="mt-auto">
       <app-footer></app-footer>
     </div>
@@ -25,7 +25,8 @@
 <!-- Toast Container -->
 <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer">
   <!-- Toast Template -->
-  <div id="toastTemplate" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" style="display: none;">
+  <div id="toastTemplate" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive"
+    aria-atomic="true" style="display: none;">
     <div class="d-flex">
       <div class="toast-body">
         Notification message here.

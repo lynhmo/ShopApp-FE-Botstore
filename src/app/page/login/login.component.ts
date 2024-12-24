@@ -86,6 +86,7 @@ export class LoginComponent {
 
   goToHome(): void {
     this.router.navigate(['']);
+    // window.location.href = '';
   }
 
   openRegister(): void {

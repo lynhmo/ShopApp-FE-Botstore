@@ -26,6 +26,8 @@ import { authGuard } from './jwt/AuthGuard.guard';
 import { PaymentComponent } from './page/payment/payment.component';
 import { OrderSuccessComponent } from './page/order-success/order-success.component';
 import { PaymentGuard } from './guard/payment.guard';
+import { AdminPageComponent } from './admin/component/admin-page/admin-page.component';
+import { AdminGuard } from './guard/admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -51,6 +53,11 @@ const routes: Routes = [
     path: 'order-success',
     component: OrderSuccessComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivate: [AdminGuard]
   },
   { path: '**', component: NotfoundComponent },
   { path: '', redirectTo: '/', pathMatch: 'full' }, // Default route
@@ -78,7 +85,8 @@ const routes: Routes = [
     GiamGiaComponent,
     UserPageComponent,
     PaymentComponent,
-    OrderSuccessComponent
+    OrderSuccessComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
