@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent {
-  myDataArray: any;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   goToHome(): void {
     this.router.navigate(['/']);
   }
+
 }

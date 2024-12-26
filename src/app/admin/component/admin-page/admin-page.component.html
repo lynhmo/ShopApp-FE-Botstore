@@ -8,17 +8,14 @@
       <button>Quản lý ABC</button>
       <button>Quản lý 1123</button>
     </div>
-    <div class="col-md-10 " style="border-left: 1px solid #ccc;">
+    <div class="col-md-10">
       <div class="row bg-white" style="height: 10%;">
         <div class="navbar px-4">
           <span class="navbar-brand mb-0 h1">Quản trị hệ thống</span>
           <button class="gobackhomme global-button" (click)="goToHome()">Về trang chủ</button>
         </div>
       </div>
-      <div class="row" style="height: 90%;">
-        <table mat-table [dataSource]="myDataArray">
-          ...
-        </table>
+      <div class="row p-3" style="height: 90%; ">
+        <app-table></app-table>
       </div>
     </div>
-  </div>

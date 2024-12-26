@@ -28,6 +28,15 @@ import { OrderSuccessComponent } from './page/order-success/order-success.compon
 import { PaymentGuard } from './guard/payment.guard';
 import { AdminPageComponent } from './admin/component/admin-page/admin-page.component';
 import { AdminGuard } from './guard/admin.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { TableComponent } from './admin/component/table/table.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -86,14 +95,20 @@ const routes: Routes = [
     UserPageComponent,
     PaymentComponent,
     OrderSuccessComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes), // Configure the router
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatSortModule, MatButtonModule, MatInputModule, MatTooltipModule
   ],
   exports: [SliderComponent],
   providers: [
