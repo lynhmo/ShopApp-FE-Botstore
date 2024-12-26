@@ -12,7 +12,7 @@
   <ng-container *ngIf="!isLoginPage && !isAdminPage">
     <app-header></app-header>
   </ng-container>
-  <div [ngClass]="checkLoginPage()">
+  <div [ngClass]="checkLoginPage()" [class]="isAdminPage ? 'vh-100' : ''">
     <router-outlet></router-outlet>
   </div>
   <ng-container *ngIf="!isLoginPage && !isAdminPage">

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-page',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent {
+  myDataArray: any;
+  constructor(private router: Router) { }
 
+  goToHome(): void {
+    this.router.navigate(['/']);
+  }
 }
