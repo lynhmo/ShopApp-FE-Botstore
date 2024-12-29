@@ -38,6 +38,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProductTableComponent } from './admin/component/data-table/product-table/product-table.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -110,7 +112,8 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatSortModule, MatButtonModule, MatInputModule, MatTooltipModule
+    MatSortModule, MatButtonModule, MatInputModule, MatTooltipModule,
+    MatCheckboxModule
   ],
   exports: [SliderComponent],
   providers: [
