@@ -1,12 +1,7 @@
 <div class="container-fluid h-100">
-
   <div class="row h-100">
     <div class="col-md-2 left-panel">
       <span style="height: 10%; width: 100%;">Quản trị hệ thống</span>
-      <!-- <button (click)="onClickTab(1)">Quản lý người dùng</button>
-      <button (click)="onClickTab(2)">Quản lý sản phẩm</button>
-      <button (click)="onClickTab(3)">Quản lý ABC</button>
-      <button (click)="onClickTab(4)">Quản lý 1123</button> -->
       <button *ngFor="let button of buttons; let i = index" [class.active]="activeButtonIndex === i"
         (click)="setActive(i)">
         {{ button.label }}
@@ -19,7 +14,10 @@
           <button class="gobackhomme global-button" (click)="goToHome()">Về trang chủ</button>
         </div>
       </div>
-      <div class="row p-3" style="height: 90%; ">
-        <user-table></user-table>
+      <div class="row p-3" style="height: 90%; display: flex; overflow: hidden;">
+        <user-table class="flex-item" *ngIf="activeButtonIndex === 0" @fadeInOut></user-table>
+        <app-product-table class="flex-item" *ngIf="activeButtonIndex === 1" @fadeInOut></app-product-table>
       </div>
     </div>
+  </div>
+</div>
