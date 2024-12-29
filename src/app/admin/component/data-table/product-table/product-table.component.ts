@@ -31,6 +31,7 @@ export class ProductTableComponent {
       return `${initialText} ${startIndex + 1} To ${endIndex} Total ${length}`; // Sửa dòng để thay chữ ở pagination
     };
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -39,7 +40,14 @@ export class ProductTableComponent {
   addData() {
     console.log('PRODUCT LIST: ');
     console.log(this.productList);
+  }
 
+  deleteData(element: PeriodicElement) {
+    console.log('DELETE: ' + element.name);
+
+  }
+  editData(element: PeriodicElement) {
+    console.log('Edit: ' + element.name);
   }
 
   displayedColumns: string[] = ['select', 'id', 'name', 'price', 'thumbnail', 'utils'];
@@ -50,6 +58,20 @@ export class ProductTableComponent {
 
 
   selection = new SelectionModel<PeriodicElement>(true, []);
+
+  isMoreThan2Selected(): boolean {
+    return this.selection.selected.length > 1;
+  }
+
+  isDeleteALL(): boolean {
+    return this.selection.selected.length == this.dataSource.data.length;
+  }
+
+  deleteSelected() {
+    console.log('DELETE SELECTED: ');
+    console.log(this.productList);
+  }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
