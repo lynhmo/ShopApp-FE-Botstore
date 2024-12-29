@@ -12,9 +12,9 @@ export interface PeriodicElement {
 
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  selector: 'user-table',
+  templateUrl: './user-table.component.html',
+  styleUrls: ['./user-table.component.scss']
 })
 export class TableComponent implements AfterViewInit {
   ngAfterViewInit(): void {

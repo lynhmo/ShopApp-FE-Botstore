@@ -1,12 +1,16 @@
 <div class="container-fluid h-100">
 
   <div class="row h-100">
-    <div class="col-md-2 left-panel py-3">
-      <h4>Quản trị hệ thống</h4>
-      <button>Quản lý người dùng</button>
-      <button>Quản lý sản phẩm</button>
-      <button>Quản lý ABC</button>
-      <button>Quản lý 1123</button>
+    <div class="col-md-2 left-panel">
+      <span style="height: 10%; width: 100%;">Quản trị hệ thống</span>
+      <!-- <button (click)="onClickTab(1)">Quản lý người dùng</button>
+      <button (click)="onClickTab(2)">Quản lý sản phẩm</button>
+      <button (click)="onClickTab(3)">Quản lý ABC</button>
+      <button (click)="onClickTab(4)">Quản lý 1123</button> -->
+      <button *ngFor="let button of buttons; let i = index" [class.active]="activeButtonIndex === i"
+        (click)="setActive(i)">
+        {{ button.label }}
+      </button>
     </div>
     <div class="col-md-10">
       <div class="row bg-white" style="height: 10%;">
@@ -16,6 +20,6 @@
         </div>
       </div>
       <div class="row p-3" style="height: 90%; ">
-        <app-table></app-table>
+        <user-table></user-table>
       </div>
     </div>

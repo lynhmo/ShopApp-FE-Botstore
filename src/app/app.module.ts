@@ -31,12 +31,13 @@ import { AdminGuard } from './guard/admin.guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { TableComponent } from './admin/component/table/table.component';
+import { TableComponent } from './admin/component/data-table/user-table/user-table.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ProductTableComponent } from './admin/component/data-table/product-table/product-table.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -96,7 +97,8 @@ const routes: Routes = [
     PaymentComponent,
     OrderSuccessComponent,
     AdminPageComponent,
-    TableComponent
+    TableComponent,
+    ProductTableComponent
   ],
   imports: [
     BrowserModule,
