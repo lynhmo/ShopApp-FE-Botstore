@@ -1,9 +1,11 @@
 .detail-product-container {
   margin: 0 7.5rem 0 7.5rem;
 }
+
 .transparent {
   opacity: 0.5;
 }
+
 .product {
   height: 600px;
   display: flex;
@@ -59,14 +61,18 @@
   height: 3rem;
   border-radius: 10px;
   border: none;
-  font-weight: bold;
+  font-weight: 500;
 
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
-  transition: transform 0.2s, box-shadow 0.2s; /* Smooth animation */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  /* Shadow effect */
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* Smooth animation */
 
   &:active {
-    transform: translateY(2px); /* Move the button down */
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
+    transform: translateY(2px);
+    /* Move the button down */
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    /* Reduce shadow size */
   }
 }
 
@@ -93,6 +99,6 @@
 
 
 
-.description{
+.description {
   margin-top: 1rem;
 }

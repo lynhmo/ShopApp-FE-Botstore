@@ -27,8 +27,8 @@
     <div class="profile position-relative" routerLink="/cart" routerLinkActive="active" *ngIf="isTokenExisted()">
       <i class="fa-solid fa-cart-shopping"></i>
 
-      <span *ngIf="productInCart" style="font-size: 14px; padding: 4px;"
-        class="position-absolute top-10 start-90 translate-middle badge rounded-pill bg-danger">
+      <span *ngIf="productInCart" style="font-size: 14px; padding: 4px; position: absolute; top: 10; right: 0;"
+        class="translate-middle badge rounded-pill bg-danger">
         {{cartItems()}}
       </span>
 

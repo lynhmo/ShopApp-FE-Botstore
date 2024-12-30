@@ -1,22 +1,23 @@
-<div role="status" [ngClass]="{'spinner-border': isLoading, 'd-none': !isLoading}" style="position: fixed; top: 50%; left: 50%;">
+<div role="status" [ngClass]="{'spinner-border': isLoading, 'd-none': !isLoading}"
+  style="position: fixed; top: 50%; left: 50%;">
   <span class="visually-hidden">Loading...</span>
 </div>
 
 <div class="detail-product-container " [ngClass]="{'transparent': isLoading}">
   <div class="product">
     <div class="image-panel">
-      <div class="h-75">
+      <div class="h-100">
         <img class="main-img" [src]="thumbnail" alt="logo">
       </div>
-      <div class="h-25 row row-cols-5 list-img g-1">
-        <!-- <img class="col small-img" src="assets/image/slider/slider1.jpg" alt="logo">
+      <!-- <div class="h-25 row row-cols-5 list-img g-1">
+        <img class="col small-img" src="assets/image/slider/slider1.jpg" alt="logo">
         <img class="col small-img" src="assets/image/slider/slider2.jpg" alt="logo">
         <img class="col small-img" src="assets/image/slider/slider3.jpg" alt="logo">
         <img class="col small-img" src="assets/image/slider/slider4.jpg" alt="logo">
-        <img class="col small-img" src="assets/image/slider/slider5.jpg" alt="logo"> -->
-      </div>
+        <img class="col small-img" src="assets/image/slider/slider5.jpg" alt="logo">
+      </div> -->
     </div>
-    <div class="detail-panel">
+    <div class="detail-panel pt-5">
       <p class="fs-2 fw-medium text-break">{{productName}}</p>
       <div class="mt-2">Category: {{categoryName}}</div>
       <!-- <div class="mt-2">Rating</div> -->
@@ -41,4 +42,3 @@
     </div>
   </div>
 </div>
-

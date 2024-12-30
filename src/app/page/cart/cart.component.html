@@ -1,6 +1,6 @@
 <div class="cart-container">
   <div class="cart-left-container">
-    <h4>Phí giao hàng</h4>
+    <span style="font-size: 1.5rem; font-weight: 500;">Phí giao hàng</span>
     <br>
     <!-- GIAM GIA -->
     <app-giam-gia [totalMoney]="totalMoney"></app-giam-gia>
@@ -43,11 +43,11 @@
     </div>
   </div>
   <div class="cart-right-container">
-    <h4>Địa chỉ</h4>
+    <span style="font-size: 1.5rem; font-weight: 500;">Thông tin đơn hàng</span>
     <br>
     <div id="cart-right-child" class="address-tag shadow">address</div>
     <div id="cart-right-child" class="shipping-cal shadow">
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column gap-2">
         <div class="d-flex justify-content-between">
           <span class="">Tạm tính</span>
           <span class="fw-bold">{{formatToVietnameseDong(totalMoney)}}</span>
@@ -58,12 +58,13 @@
         </div>
       </div>
     </div>
-    <div id="cart-right-child" class="shadow d-flex flex-column">
+    <div id="cart-right-child" class="shadow d-flex flex-column gap-3">
       <span class="">Tổng tiền</span>
       <span class="money-total">{{formatToVietnameseDong(totalMoney + shippedCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
-    <button *ngIf="listOrderDetail == null " id="addCart" class="button-product" disabled>Thanh toán disable</button>
+    <button *ngIf="listOrderDetail == null " id="addCart" class="button-product" disableds
+      style="background-color: rgb(178, 178, 178);">Thanh toán</button>
     <button *ngIf="listOrderDetail != null && listOrderDetail.length > 0" id="addCart" class="button-product"
       routerLink="/payment" routerLinkActive="active" (click)="setSessionPayment()">Thanh toán</button>
   </div>
