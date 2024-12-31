@@ -1,15 +1,108 @@
+import { ToastPopupService } from './../../../../service/toast-popup.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Product } from 'src/app/model/product.model';
+import { ProductService } from 'src/app/service/product.service';
+import { CategoryService } from 'src/app/service/category.service';
+import { Category } from 'src/app/model/category';
 
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.scss']
 })
-export class ProductTableComponent {
+export class ProductTableComponent implements OnInit, AfterViewInit {
+
+
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private toastPopupService: ToastPopupService
+  ) { }
+
+
+  pageProduct!: Product[];
+  listCategory: Category[] = [];
+  selectedCategoryId: number | null = null;
+  displayedColumns: string[] = ['select', 'id', 'name', 'price', 'thumbnail', 'utils'];
+  dataSource!: MatTableDataSource<Product>;
+
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
+  ngOnInit(): void {
+    this.loadProduct();
+    this.loadCategory();
+  }
+
+
+  loadProduct() {
+    this.productService.getAllPageable(0, 100).subscribe(
+      (response) => {
+        this.pageProduct = response.content;
+        this.dataSource = new MatTableDataSource(response.content);
+      }
+    );
+  }
+
+  loadCategory() {
+    this.categoryService.getAllCategory().subscribe({
+      next: (response) => {
+        this.listCategory = response;
+      }
+    })
+  }
+
+  product = {
+    name: '',
+    price: null,
+    thumbnail: null,
+    description: '',
+    categoryId: null,
+  };
+
+  handleFileInput(event: any) {
+    this.product.thumbnail = event.target.files[0];
+  }
+
+  onSubmit(form: any) {
+    if (form.valid) {
+
+      if (this.product.thumbnail == null || this.product.price == null || this.product.categoryId == null) {
+        this.toastPopupService.showToast('Data missing', 'error');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('name', this.product.name);
+      formData.append('price', this.product.price);
+      formData.append('thumbnail', this.product.thumbnail);
+      formData.append('description', this.product.description);
+      formData.append('categoryId', this.product.categoryId);
+
+
+      this.productService.saveProduct(formData).subscribe({
+        next: (response) => {
+          this.toastPopupService.showToast('Add product success', 'success');
+          this.loadProduct();
+        },
+        error: (error) => {
+          console.error(error);
+          this.toastPopupService.showToast(error, 'error');
+        }
+      });
+      form.reset();
+    } else {
+      this.toastPopupService.showToast('Form is invalid', 'error');
+    }
+  }
+
+
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -39,25 +132,21 @@ export class ProductTableComponent {
 
   addData() {
     console.log('PRODUCT LIST: ');
-    console.log(this.productList);
+    console.log(this.selectedProductList);
   }
 
-  deleteData(element: PeriodicElement) {
+  deleteData(element: Product) {
     console.log('DELETE: ' + element.name);
 
   }
-  editData(element: PeriodicElement) {
+
+  editData(element: Product) {
     console.log('Edit: ' + element.name);
   }
 
-  displayedColumns: string[] = ['select', 'id', 'name', 'price', 'thumbnail', 'utils'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  selection = new SelectionModel<Product>(true, []);
 
   isMoreThan2Selected(): boolean {
     return this.selection.selected.length > 1;
@@ -69,7 +158,7 @@ export class ProductTableComponent {
 
   deleteSelected() {
     console.log('DELETE SELECTED: ');
-    console.log(this.productList);
+    console.log(this.selectedProductList);
   }
 
   isAllSelected() {
@@ -77,6 +166,11 @@ export class ProductTableComponent {
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
+
+
+
+  selectedProductList: Product[] = [];
+
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   toggleAllRows() {
@@ -90,44 +184,19 @@ export class ProductTableComponent {
     this.selection.select(...this.dataSource.data);
   }
 
-  productList: PeriodicElement[] = [];
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: Product): string {
     if (!row) {
 
-      this.productList = this.selection.selected; //////////////////////////////////////
+      this.selectedProductList = this.selection.selected; //////////////////////////////////////
 
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    this.productList = this.selection.selected; //////////////////////////////////////
+    this.selectedProductList = this.selection.selected; //////////////////////////////////////
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { id: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { id: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { id: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { id: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { id: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { id: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { id: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { id: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { id: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 11, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 12, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 13, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 14, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 15, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 16, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 17, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  { id: 18, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
-export interface PeriodicElement {
-  name: string;
-  id: number;
-  weight: number;
-  symbol: string;
-}
+// const ProductList: Product[] = [];
+

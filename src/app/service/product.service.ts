@@ -1,11 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService } from './http-utils.service';
 import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { environment } from '../env/enviroment';
 import { PageableResponse } from '../model/PageableResponse';
 import { Product } from '../model/product.model';
 import { OrderDetailService } from './orderDetail.service';
+import { ProductRequest } from '../model/ProductRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,6 @@ export class ProductService {
   private apiProduct = `${environment.apiBaseUrl}/products`;
   constructor(
     private http: HttpClient,
-    private httpUtilsService: HttpUtilsService,
     private orderDetailService: OrderDetailService,
   ) { }
 
@@ -63,5 +62,13 @@ export class ProductService {
         return response;
       })
     );
+  }
+
+
+
+  saveProduct(product: any): Observable<Product> {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    return this.http.post<Product>(this.apiProduct + "/v2", product, { headers });
   }
 }

@@ -1,6 +1,7 @@
 <div class="bg-white rounded shadow p-3">
   <div class="button-container">
-    <button mat-raised-button (click)="addData()" style="background-color: #72af5c; border-radius: 7px; color: white;">
+    <button mat-raised-button (click)="addData()" style="background-color: #72af5c; border-radius: 7px; color: white;"
+      data-bs-toggle="modal" data-bs-target="#addProductModal">
       Add data
     </button>
     <mat-form-field class="ms-4">
@@ -64,7 +65,9 @@
       <!-- Thuhmbnail Column -->
       <ng-container matColumnDef="thumbnail">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
-        <td mat-cell *matCellDef="let element"> {{element.thumbnail}} </td>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.thumbnail" alt="thumbnail" style="width: 50px; height: 50px;">
+        </td>
       </ng-container>
 
 
@@ -87,5 +90,123 @@
 
     <mat-paginator [pageSize]="8" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
   </div>
-
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProductModalLabel" style="font-size: large;">Thêm sản phẩm mới</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Add your form or inputs here -->
+
+        <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)" novalidate>
+          <div class="mb-3">
+            <label for="productName" class="form-label">Tên sản phẩm</label>
+            <input [(ngModel)]="product.name" type="text" class="form-control" id="productName" name="name" required
+              #name="ngModel" />
+            <div *ngIf="name.invalid && name.touched" class="text-danger">
+              Tên sản phẩm là bắt buộc.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">Giá</label>
+            <input [(ngModel)]="product.price" type="number" class="form-control" id="productPrice" name="price"
+              required min="1" #price="ngModel" />
+            <div *ngIf="price.invalid && price.touched " class="text-danger">
+              Giá sản phẩm phải lớn hơn 0.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="productThumbnail" class="form-label">Ảnh</label>
+            <input [(ngModel)]="product.thumbnail" [ngModelOptions]="{standalone: true}"
+              (change)="handleFileInput($event)" type="file" class="form-control" id="productThumbnail"
+              #thumbnail="ngModel" required />
+            <div *ngIf="thumbnail.invalid && thumbnail.touched" class="text-danger">
+              Anh sản phẩm là bắt buộc.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="productDescription" class="form-label">Mô tả</label>
+            <input [(ngModel)]="product.description" type="text" class="form-control" id="productDescription"
+              name="description" required #description="ngModel" />
+            <div *ngIf="description.invalid && description.touched" class="text-danger">
+              Mô tả là bắt buộc.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="productCategory" class="form-label">Danh mục sản phẩm</label>
+            <select [(ngModel)]="product.categoryId" class="form-select" id="productCategory" name="category" required
+              #category="ngModel">
+              <option *ngFor="let category of listCategory" [value]="category.id">{{ category.name }}</option>
+            </select>
+            <div *ngIf="category.invalid && category.touched" class="text-danger">
+              Chọn danh mục sản phẩm.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="productForm.invalid">Thêm
+              sản
+              phẩm</button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary" (click)="saveProduct()">Thêm sản
+          phẩm</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- <form>
+          <div class="mb-3">
+            <label for="productName" class="form-label">Tên sản phẩm</label>
+            <div class="text-danger" *ngIf="product.name.length <= 0">
+              <small *ngIf="product.name.length <= 0"> Tên sản phẩm bắt buộc</small>
+            </div>
+            <input [(ngModel)]="product.name" type="text" class="form-control" id="productName"
+              placeholder="Nhập tên sản phẩm" name="name" />
+          </div>
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">Giá</label>
+            <div class="text-danger" *ngIf="!product.price || product.price <= 0">
+              <small *ngIf="!product.price || product.price <= 0"> Giá sản phẩm bắt buộc hoặc không hợp lệ</small>
+            </div>
+            <input [(ngModel)]="product.price" type="number" class="form-control" id="productPrice"
+              placeholder="Nhập giá sản phẩm" name="price" />
+          </div>
+          <div class="mb-3">
+            <label for="productThumbnail" class="form-label">Ảnh</label>
+            <div class="text-danger" *ngIf="product.thumbnail.length <= 0">
+              <small *ngIf="product.thumbnail.length <= 0 "> Ảnh sản phẩm bắt buộc</small>
+            </div>
+            <input (change)="handleFileInput($event)" type="file" class="form-control" id="productThumbnail" />
+          </div>
+          <div class="mb-3">
+            <label for="productDescription" class="form-label">Mô tả</label>
+            <input [(ngModel)]="product.description" type="text" class="form-control" id="productDescription"
+              name="description" />
+          </div>
+          <div class="mb-3">
+            <label for="productCategory" class="form-label">Danh mục sản phẩm</label>
+            <div class="text-danger" *ngIf="!product.category_id || product.category_id <= 0">
+              <small *ngIf="!product.category_id || product.category_id <= 0"> Danh mục sản phẩm bắt buộc</small>
+            </div>
+            <select [(ngModel)]="product.category_id" class="form-select" id="productCategory"
+              [(ngModel)]="selectedCategoryId" name="category">
+              <option *ngFor="let category of listCategory" [value]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+        </form> -->
