@@ -1,6 +1,4 @@
 export interface Product {
-  // discount: number,
-  // stock: number,
   createAt: string,
   updateAt: string,
   id: number,

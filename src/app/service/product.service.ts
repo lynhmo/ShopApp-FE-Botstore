@@ -66,6 +66,15 @@ export class ProductService {
 
 
 
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(this.apiProduct + "/" + product.id, product);
+  }
+
+  deleteProduct(productId: number): Observable<any> {
+    return this.http.delete(this.apiProduct + "/" + productId);
+  }
+
+
   saveProduct(product: any): Observable<Product> {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');

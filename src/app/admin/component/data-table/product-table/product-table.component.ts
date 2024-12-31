@@ -1,3 +1,4 @@
+import { SuccessResponse } from './../../../../response/SuccessResponse';
 import { ToastPopupService } from './../../../../service/toast-popup.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +9,7 @@ import { Product } from 'src/app/model/product.model';
 import { ProductService } from 'src/app/service/product.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { Category } from 'src/app/model/category';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-product-table',
@@ -27,7 +29,7 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   pageProduct!: Product[];
   listCategory: Category[] = [];
   selectedCategoryId: number | null = null;
-  displayedColumns: string[] = ['select', 'id', 'name', 'price', 'thumbnail', 'utils'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'price', 'is_deleted', 'thumbnail', 'utils'];
   dataSource!: MatTableDataSource<Product>;
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -41,10 +43,11 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
 
 
   loadProduct() {
-    this.productService.getAllPageable(0, 100).subscribe(
+    this.productService.getAllPageable(0, 100, 1).subscribe(
       (response) => {
         this.pageProduct = response.content;
         this.dataSource = new MatTableDataSource(response.content);
+        this.ngAfterViewInit();
       }
     );
   }
@@ -101,6 +104,84 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
     }
   }
 
+  deleteProduct(product: any) {
+    const tempProduct: Product = product as Product;
+    this.productService.deleteProduct(tempProduct.id).subscribe({
+      next: (response) => {
+        this.toastPopupService.showToast('Delete product success', 'success');
+        this.loadProduct();
+      },
+      error: (error) => {
+        const SuccessResponse = error.error as SuccessResponse;
+        this.toastPopupService.showToast(SuccessResponse.message, 'error');
+      }
+    });
+  }
+
+
+  tempUpdateProduct = {
+    id: null as number | null,
+    name: '',
+    price: null as number | null,
+    thumbnail: null as File | null,
+    isDeleted: null as Boolean | null,
+    description: '',
+    category_id: null as number | null,
+  };
+
+  updateProduct(product: any) {
+    const tempProduct: Product = product as Product;
+    const [metadata, base64String] = tempProduct.thumbnail.split(',');
+    const mimeType = metadata.match(/data:(.*);base64/)?.[1];
+
+    if (!mimeType) {
+      console.error('Invalid Base64 data');
+      return;
+    }
+
+    // Convert base64 to binary data
+    const binaryString = atob(base64String);
+    const binaryData = new Uint8Array(binaryString.length);
+
+    for (let i = 0; i < binaryString.length; i++) {
+      binaryData[i] = binaryString.charCodeAt(i);
+    }
+
+    // Create a File instance
+    const fileName = 'image.jpg';
+    const file = new File([binaryData], fileName, { type: mimeType });
+
+    this.tempUpdateProduct = {
+      id: tempProduct.id,
+      name: tempProduct.name,
+      price: tempProduct.price,
+      isDeleted: tempProduct.is_deleted,
+      thumbnail: file,
+      description: tempProduct.description,
+      category_id: tempProduct.category_id,
+    }
+
+  }
+
+  onEditSubmit(form: any) {
+    console.log(form.value);
+    this.productService.updateProduct(form.value).subscribe({
+      next: (response) => {
+        this.toastPopupService.showToast('Update product success', 'success');
+        this.loadProduct();
+      },
+      error: (error) => {
+        console.error(error);
+        this.toastPopupService.showToast(error, 'error');
+      }
+    });
+  }
+
+  formatToVietnameseDong(amount: number): string {
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
+
+
 
 
   ngAfterViewInit(): void {
@@ -131,20 +212,7 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 
   addData() {
-    console.log('PRODUCT LIST: ');
-    console.log(this.selectedProductList);
   }
-
-  deleteData(element: Product) {
-    console.log('DELETE: ' + element.name);
-
-  }
-
-  editData(element: Product) {
-    console.log('Edit: ' + element.name);
-  }
-
-
 
   selection = new SelectionModel<Product>(true, []);
 
@@ -198,5 +266,4 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 }
 
-// const ProductList: Product[] = [];
 

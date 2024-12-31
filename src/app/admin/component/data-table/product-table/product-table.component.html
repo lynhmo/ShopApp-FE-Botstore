@@ -56,10 +56,17 @@
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
+      <!-- Deleted Column -->
+      <ng-container matColumnDef="is_deleted">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Deleted </th>
+        <td mat-cell *matCellDef="let element"> {{element.is_deleted}} </td>
+      </ng-container>
+
+
       <!-- Price Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        <td mat-cell *matCellDef="let element"> {{ formatToVietnameseDong(element.price) }} </td>
       </ng-container>
 
       <!-- Thuhmbnail Column -->
@@ -75,10 +82,11 @@
       <ng-container matColumnDef="utils">
         <th mat-header-cell *matHeaderCellDef> Utils </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="editData(element)">
+          <button mat-icon-button (click)="updateProduct(element)" data-bs-target="#editProductModal"
+            data-bs-toggle="modal">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button (click)="deleteData(element)">
+          <button mat-icon-button (click)="deleteProduct(element)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -155,58 +163,100 @@
           </div>
         </form>
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-        <button type="button" class="btn btn-primary" (click)="saveProduct()">Thêm sản
-          phẩm</button>
-      </div> -->
     </div>
   </div>
 </div>
 
 
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
+      <!-- Body -->
+      <div class="modal-body">
+        <!-- FORM -->
+        <form #editForm="ngForm" (ngSubmit)="onEditSubmit(editForm); editForm.reset()" novalidate>
 
-
-
-
-<!-- <form>
+          <!-- ID -->
           <div class="mb-3">
-            <label for="productName" class="form-label">Tên sản phẩm</label>
-            <div class="text-danger" *ngIf="product.name.length <= 0">
-              <small *ngIf="product.name.length <= 0"> Tên sản phẩm bắt buộc</small>
+            <label for="id" class="form-label">Product Name</label>
+            <input [(ngModel)]="tempUpdateProduct.id" name="id" type="text" class="form-control" id="id" required
+              #prodID="ngModel" readonly />
+            <div *ngIf="prodID.invalid && prodID.touched" class="text-danger">
+              Tên sản phẩm là bắt buộc.
             </div>
-            <input [(ngModel)]="product.name" type="text" class="form-control" id="productName"
-              placeholder="Nhập tên sản phẩm" name="name" />
           </div>
+
+          <!-- NAME -->
           <div class="mb-3">
-            <label for="productPrice" class="form-label">Giá</label>
-            <div class="text-danger" *ngIf="!product.price || product.price <= 0">
-              <small *ngIf="!product.price || product.price <= 0"> Giá sản phẩm bắt buộc hoặc không hợp lệ</small>
+            <label for="name" class="form-label">Product Name</label>
+            <input [(ngModel)]="tempUpdateProduct.name" name="name" type="text" class="form-control" id="name" required
+              #prodName="ngModel" />
+            <div *ngIf="prodName.invalid && prodName.touched" class="text-danger">
+              Tên sản phẩm là bắt buộc.
             </div>
-            <input [(ngModel)]="product.price" type="number" class="form-control" id="productPrice"
-              placeholder="Nhập giá sản phẩm" name="price" />
           </div>
+
+          <!-- DELTED -->
           <div class="mb-3">
-            <label for="productThumbnail" class="form-label">Ảnh</label>
-            <div class="text-danger" *ngIf="product.thumbnail.length <= 0">
-              <small *ngIf="product.thumbnail.length <= 0 "> Ảnh sản phẩm bắt buộc</small>
+            <label for="isDeleted" class="form-label">Product Name</label>
+            <select [(ngModel)]="tempUpdateProduct.isDeleted" name="isDeleted" class="form-select" id="isDeleted"
+              required #isDeleted="ngModel">
+              <option [value]="true">True</option>
+              <option [value]="false">False</option>
+            </select>
+
+            <div *ngIf="categoryName.invalid && categoryName.touched" class="text-danger">
+              Danh mục sản phẩm không hợp lệ
             </div>
-            <input (change)="handleFileInput($event)" type="file" class="form-control" id="productThumbnail" />
           </div>
+
+
+          <!-- Price -->
           <div class="mb-3">
-            <label for="productDescription" class="form-label">Mô tả</label>
-            <input [(ngModel)]="product.description" type="text" class="form-control" id="productDescription"
-              name="description" />
-          </div>
-          <div class="mb-3">
-            <label for="productCategory" class="form-label">Danh mục sản phẩm</label>
-            <div class="text-danger" *ngIf="!product.category_id || product.category_id <= 0">
-              <small *ngIf="!product.category_id || product.category_id <= 0"> Danh mục sản phẩm bắt buộc</small>
+            <label for="productPrice" class="form-label">Price</label>
+            <input [(ngModel)]="tempUpdateProduct.price" name="price" type="number" class="form-control"
+              id="productPrice" required #prodPrice="ngModel" />
+            <div *ngIf="prodPrice.invalid && prodPrice.touched" class="text-danger">
+              Giá sản phẩm không hợp lệ
             </div>
-            <select [(ngModel)]="product.category_id" class="form-select" id="productCategory"
-              [(ngModel)]="selectedCategoryId" name="category">
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input [(ngModel)]="tempUpdateProduct.description" name="description" class="form-control" id="description"
+              type="text" #prod="ngModel">
+          </div>
+
+
+          <!-- Category -->
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select [(ngModel)]="tempUpdateProduct.category_id" name="category_id" class="form-select" id="category"
+              required #categoryName="ngModel">
               <option *ngFor="let category of listCategory" [value]="category.id">{{ category.name }}</option>
             </select>
+            <div *ngIf="categoryName.invalid && categoryName.touched" class="text-danger">
+              Danh mục sản phẩm không hợp lệ
+            </div>
           </div>
-        </form> -->
+
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!editForm.form.valid">Save
+              Changes</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
