@@ -1,0 +1,25 @@
+<div class="container mt-3 position-relative ">
+  <mat-form-field appearance="fill" class="w-100">
+    <input matInput [formControl]="searchControl" placeholder="Type to search..." />
+  </mat-form-field>
+
+  <!-- Floating Results -->
+  <div *ngIf="products.length > 0 && !isLoading"
+    class="position-absolute bg-white shadow rounded w-100 mt-1 fade-in-down" style="z-index: 1050; overflow-y: auto;">
+    <div *ngFor="let product of products" class="list-group-item list-group-item-action p-2 product" (click)="selectProduct(product)">
+      {{ product.name }}
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="position-absolute w-100 text-center mt-1">
+    <mat-spinner diameter="30"></mat-spinner>
+  </div>
+
+  <!-- No Results Message -->
+  <div *ngIf="!isLoading && products.length === 0 && searchControl.value"
+    class="position-absolute text-center w-100 mt-1 text-muted bg-white rounded shadow p-2 fade-in-down"
+    style="z-index: 1050;">
+    No results found
+  </div>
+</div>

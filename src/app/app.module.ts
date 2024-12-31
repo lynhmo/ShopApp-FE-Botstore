@@ -40,6 +40,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProductTableComponent } from './admin/component/data-table/product-table/product-table.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
+import { SearchComponent } from './component/search/search.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -100,7 +103,8 @@ const routes: Routes = [
     OrderSuccessComponent,
     AdminPageComponent,
     TableComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +117,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatFormFieldModule,
     MatSortModule, MatButtonModule, MatInputModule, MatTooltipModule,
-    MatCheckboxModule, MatIconModule
+    MatCheckboxModule, MatIconModule, MatProgressSpinnerModule
   ],
   exports: [SliderComponent],
   providers: [

@@ -64,7 +64,11 @@ export class ProductService {
     );
   }
 
-
+  searchProducts(query: string): Observable<any[]> {
+    let params = new HttpParams()
+      .set('query', query.toString());
+    return this.http.get<any[]>(this.apiProduct + "/search", { params });
+  }
 
   updateProduct(product: Product): Observable<Product> {
     return this.http.put<Product>(this.apiProduct + "/" + product.id, product);
