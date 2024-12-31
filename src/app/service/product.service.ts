@@ -74,6 +74,12 @@ export class ProductService {
     return this.http.delete(this.apiProduct + "/" + productId);
   }
 
+  deleteManyProducts(productIds: number[]): Observable<any> {
+    const body = {
+      ids: productIds
+    }
+    return this.http.post<Product>(this.apiProduct + "/delete-many", body);
+  }
 
   saveProduct(product: any): Observable<Product> {
     const headers = new HttpHeaders();

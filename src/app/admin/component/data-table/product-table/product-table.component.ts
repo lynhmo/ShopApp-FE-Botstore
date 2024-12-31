@@ -225,8 +225,20 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 
   deleteSelected() {
-    console.log('DELETE SELECTED: ');
-    console.log(this.selectedProductList);
+    const ids: number[] = this.selectedProductList.map(product => product.id);
+    this.productService.deleteManyProducts(ids).subscribe({
+      next: (response) => {
+        this.toastPopupService.showToast('Delete product success', 'success');
+        this.loadProduct();
+      },
+      error: (error) => {
+        console.error(error);
+        this.toastPopupService.showToast(error, 'error');
+      }
+    });
+  }
+  deleteAllSelected() {
+    confirm('Are you sure to delete all selected products?') ? this.deleteSelected() : null;
   }
 
   isAllSelected() {
