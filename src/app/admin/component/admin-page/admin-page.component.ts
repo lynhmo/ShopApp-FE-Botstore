@@ -25,8 +25,8 @@ export class AdminPageComponent {
   buttons = [
     { label: 'Quản lý người dùng' },
     { label: 'Quản lý sản phẩm' },
-    { label: 'Quản lý ABC' },
-    { label: 'Quản lý 1123' },
+    { label: 'Quản lý đơn hàng' },
+    { label: 'Quản lý danh mục' },
   ];
 
   activeButtonIndex: number = 0;

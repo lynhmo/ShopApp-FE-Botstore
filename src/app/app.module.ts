@@ -42,6 +42,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { SearchComponent } from './component/search/search.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CategoryTableComponent } from './admin/component/data-table/category-table/category-table.component';
+import { OrderTableComponent } from './admin/component/data-table/order-table/order-table.component';
 
 
 const routes: Routes = [
@@ -104,7 +106,9 @@ const routes: Routes = [
     AdminPageComponent,
     TableComponent,
     ProductTableComponent,
-    SearchComponent
+    SearchComponent,
+    CategoryTableComponent,
+    OrderTableComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,8 @@
       <div class="row p-3" style="height: 90%; display: flex; overflow: hidden;">
         <user-table class="flex-item" *ngIf="activeButtonIndex === 0" @fadeInOut></user-table>
         <app-product-table class="flex-item" *ngIf="activeButtonIndex === 1" @fadeInOut></app-product-table>
+        <order-table class="flex-item" *ngIf="activeButtonIndex === 2" @fadeInOut></order-table>
+        <category-table class="flex-item" *ngIf="activeButtonIndex === 3" @fadeInOut></category-table>
       </div>
     </div>
   </div>
