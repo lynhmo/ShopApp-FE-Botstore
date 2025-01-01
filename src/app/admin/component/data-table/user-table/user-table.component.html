@@ -1,8 +1,5 @@
 <div class="bg-white rounded shadow p-3">
   <div class="button-container">
-    <button mat-raised-button (click)="addData()" style="background-color: #72af5c; border-radius: 7px; color: white;">
-      Add data
-    </button>
     <mat-form-field class="ms-4">
       <input (keyup)="applyFilter($event)" matInput placeholder="Filter">
     </mat-form-field>
@@ -11,28 +8,54 @@
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      <!-- Name Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id || "null"}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên người dùng </th>
+        <td mat-cell *matCellDef="let element"> {{element.fullName || "null"}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <!-- username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên đăng nhập </th>
+        <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+
+      <!-- address Column -->
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Địa chỉ </th>
+        <td mat-cell *matCellDef="let element"> {{element.address || "null"}} </td>
+      </ng-container>
+
+      <!-- active Column -->
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái </th>
+        <td mat-cell *matCellDef="let element"> {{element.isActive ? "Đang hoạt động" : "Đã xoá"}} </td>
+      </ng-container>
+
+      <!-- role Column -->
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vai trò </th>
+        <td mat-cell *matCellDef="let element"> {{element.role.name || 'null'}} </td>
+      </ng-container>
+
+      <!-- Utils Column -->
+      <ng-container matColumnDef="utils">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Thao tác </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
+          <button mat-icon-button (click)="updateUser(element)" data-bs-target="#editModal" data-bs-toggle="modal">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteUser(element)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -41,5 +64,78 @@
 
     <mat-paginator [pageSize]="8" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
   </div>
+</div>
 
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <!-- FORM -->
+        <form #editForm="ngForm" (ngSubmit)="onEditSubmit(editForm); editForm.reset()" novalidate>
+
+          <!-- ID -->
+          <div class="mb-3">
+            <label for="id" class="form-label">ID</label>
+            <input [(ngModel)]="tempUpdateUser.id" name="id" type="text" class="form-control" id="id" readonly
+              style="cursor: not-allowed;" />
+          </div>
+
+          <!-- FULL NAME -->
+          <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input [(ngModel)]="tempUpdateUser.fullname" name="fullname" type="text" class="form-control"
+              id="fullname" />
+          </div>
+
+          <!-- USERNAME -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input [(ngModel)]="tempUpdateUser.username" name="username" type="text" class="form-control" id="username"
+              readonly style="cursor: not-allowed;" />
+          </div>
+
+          <!-- Address -->
+          <div class="mb-3">
+            <label for="address" class="form-label">Price</label>
+            <input [(ngModel)]="tempUpdateUser.address" name="address" type="text" class="form-control" id="address" />
+          </div>
+
+          <!-- Role -->
+          <div class="mb-3">
+            <label for="role_id" class="form-label">Role</label>
+
+            <!-- input -->
+            <select [(ngModel)]="tempUpdateUser.role_id" name="role_id" class="form-select" id="role_id" required
+              #role_id="ngModel">
+              <option [value]="1">ADMIN</option>
+              <option [value]="2">USER</option>
+            </select>
+
+            <!-- Valid role -->
+            <div *ngIf="role_id.invalid && role_id.touched" class="text-danger">
+              Role không hợp lệ
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!editForm.form.valid">Save
+              Changes</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

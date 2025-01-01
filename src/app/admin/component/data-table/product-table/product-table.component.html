@@ -23,26 +23,20 @@
 
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox [disableRipple]="true" (change)="$event ? toggleAllRows() : null"
-            [checked]="selection.hasValue() && isAllSelected()"
+          <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox [disableRipple]="true" (click)="$event.stopPropagation()"
-            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
-            [aria-label]="checkboxLabel(row)">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
           </mat-checkbox>
         </td>
       </ng-container>
 
 
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-      </ng-container>
+
 
       <!-- Name Column -->
       <ng-container matColumnDef="id">
@@ -52,26 +46,26 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tên sản phẩm </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
       <!-- Deleted Column -->
       <ng-container matColumnDef="is_deleted">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Deleted </th>
-        <td mat-cell *matCellDef="let element"> {{element.is_deleted}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái </th>
+        <td mat-cell *matCellDef="let element"> {{element.is_deleted ? "Đã Xoá": "Đang hiển thị"}} </td>
       </ng-container>
 
 
       <!-- Price Column -->
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Đơn giá </th>
         <td mat-cell *matCellDef="let element"> {{ formatToVietnameseDong(element.price) }} </td>
       </ng-container>
 
       <!-- Thuhmbnail Column -->
       <ng-container matColumnDef="thumbnail">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ảnh </th>
         <td mat-cell *matCellDef="let element">
           <img [src]="element.thumbnail" alt="thumbnail" style="width: 50px; height: 50px;">
         </td>
@@ -80,14 +74,14 @@
 
       <!-- Utils Column -->
       <ng-container matColumnDef="utils">
-        <th mat-header-cell *matHeaderCellDef> Utils </th>
-        <td mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Thao Tác </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
           <button mat-icon-button (click)="updateProduct(element)" data-bs-target="#editProductModal"
             data-bs-toggle="modal">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button (click)="deleteProduct(element)">
-            <mat-icon>delete</mat-icon>
+            <mat-icon color="warn">delete</mat-icon>
           </button>
         </td>
       </ng-container>

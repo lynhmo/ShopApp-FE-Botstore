@@ -221,7 +221,7 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 
   isDeleteALL(): boolean {
-    return this.selection.selected.length == this.dataSource.data.length;
+    return this.selection.selected.length == this.dataSource?.data.length;
   }
 
   deleteSelected() {
@@ -242,8 +242,8 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numSelected = this.selection?.selected.length;
+    const numRows = this.dataSource?.data.length;
     return numSelected === numRows;
   }
 
