@@ -2,6 +2,7 @@ import { TokenService } from './../../jwt/token.service';
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderDetailProduct } from 'src/app/model/OrderDetailProduct';
 import { OrderService } from 'src/app/service/order.service';
 
 @Component({
@@ -10,20 +11,21 @@ import { OrderService } from 'src/app/service/order.service';
   styleUrls: ['./order-success.component.scss']
 })
 export class OrderSuccessComponent implements OnInit, OnDestroy {
+  private readonly ORDER_PROCDUCT = 'order_product';
   private readonly PENDING_ORDER = 'pending_order';
+
   localStorage?: Storage
   orderIdPending!: number
   sessionStorages?: Storage
 
+  listOrderDetail!: OrderDetailProduct[]
 
   countdown: number = 10; // 10-second countdown
   private intervalId: any;
 
-
   constructor(
     private orderService: OrderService,
     private tokenService: TokenService,
-    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.localStorage = document.defaultView?.localStorage;
@@ -33,8 +35,18 @@ export class OrderSuccessComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getIdOrderPending();
     this.sessionStorages?.setItem('payment-status', 'true');
+    this.getOrderedProduct();
     this.startCountdown();
   }
+
+
+  getOrderedProduct() {
+    this.listOrderDetail = JSON.parse(
+      this.sessionStorages?.getItem(this.ORDER_PROCDUCT) || '[]'
+    );
+  }
+
+
   ngOnDestroy(): void {
     // Clear the timer when the component is destroyed
     if (this.intervalId) {
@@ -59,7 +71,9 @@ export class OrderSuccessComponent implements OnInit, OnDestroy {
     window.location.href = ''
   }
 
-
+  formatToVietnameseDong(amount: number): string {
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
 
 
 

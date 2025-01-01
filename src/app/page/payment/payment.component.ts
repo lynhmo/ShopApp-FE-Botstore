@@ -122,7 +122,6 @@ export class PaymentComponent implements OnInit {
   }
 
   pay() {
-
     if (this.paymentMethod == 'cash') {
       this.payCash();
     } else {
@@ -140,7 +139,6 @@ export class PaymentComponent implements OnInit {
     this.orderService.updateOrderStatus(this.pendingOrderId, this.tokenService.getUserId(), status)
       .subscribe({
         next: (response) => {
-          console.log(response);
           // clear pending order local storage
           this.localStorage?.removeItem(this.PENDING_ORDER);
           // redirect to order success page

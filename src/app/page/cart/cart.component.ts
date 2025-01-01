@@ -19,6 +19,7 @@ import { ProductService } from 'src/app/service/product.service';
 export class CartComponent implements OnInit {
 
   private readonly PENDING_ORDER = 'pending_order';
+  private readonly ORDER_PROCDUCT = 'order_product';
   localStorage?: Storage
   sessionStorages?: Storage
 
@@ -50,9 +51,16 @@ export class CartComponent implements OnInit {
 
   setSessionPayment() {
     this.sessionStorages?.setItem('payment-status', 'false');
+    this.setSessionProduct();
+  }
+
+  setSessionProduct() {
+    const jsonString = JSON.stringify(this.listOrderDetail);
+    this.sessionStorages?.setItem(this.ORDER_PROCDUCT, jsonString);
   }
 
   ngOnInit(): void {
+    this.sessionStorages?.removeItem(this.ORDER_PROCDUCT)
     this.refreshOrder()
   }
 
@@ -143,8 +151,6 @@ export class CartComponent implements OnInit {
   formatToVietnameseDong(amount: number): string {
     return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
   }
-
-
 
   private updateStages(totalOrderMoney: number): void {
     if (totalOrderMoney < 200000 && totalOrderMoney > 0) {

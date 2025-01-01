@@ -1,5 +1,32 @@
-<div class="success-message">
-  <h1>Order Successful!</h1>
-  <p>Redirecting to the home page in {{ countdown }} seconds...</p>
-  <button (click)="goToHome()">Return to Home Page Now</button>
+<div class="center">
+
+  <div class="center header-container">
+    <h1>Đơn hàng đã đặt thành công</h1>
+    <div class="global-button button" (click)="goToHome()">Trở về trang chủ trong {{ countdown }} giây...</div>
+  </div>
+
+  <div class="center product-list grid">
+
+    <div class="label">
+      <div>Ảnh</div>
+      <div>Tên</div>
+      <div>Đơn giá</div>
+      <div>Số lượng</div>
+      <div>Tổng</div>
+    </div>
+
+    <div class="product-grid">
+      <div class="product" *ngFor="let orderDetails of listOrderDetail">
+        <div class="product-component center">
+          <img class="image-product" [src]="orderDetails.product.thumbnail" alt="tag">
+
+        </div>
+        <span class="product-name product-component center">{{orderDetails.product.name}}</span>
+        <div class="product-component center">{{ formatToVietnameseDong(orderDetails.price) }}</div>
+        <div class="product-component center">{{ orderDetails.number_of_products }}</div>
+        <div class="product-component center">{{ formatToVietnameseDong(orderDetails.total_money) }}</div>
+      </div>
+    </div>
+
+  </div>
 </div>
