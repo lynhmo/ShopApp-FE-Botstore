@@ -7,6 +7,7 @@ import { PageableResponse } from '../model/PageableResponse';
 import { map, Observable } from 'rxjs';
 import { TokenService } from '../jwt/token.service';
 import { SuccessResponse } from '../response/SuccessResponse';
+import { OrderResponse } from '../response/OrderResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -55,4 +56,8 @@ export class OrderService {
     );
   }
 
+
+  getAllOrdersByUserId(userId: number): Observable<OrderResponse[]> {
+    return this.http.get<OrderResponse[]>(this.apiOrder + "/user/detail/" + userId);
+  }
 }

@@ -1,0 +1,30 @@
+.order {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 3px solid #72af5c;
+  border-radius: 10px;
+}
+
+.order-label {
+  background-color: #72af5c;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  color: white;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.detail-label {
+  padding: 1rem 1rem 1rem 3rem;
+  background-color: #eeeeee;
+  font-size: medium;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-order {
+  padding-left: 3rem;
+}
