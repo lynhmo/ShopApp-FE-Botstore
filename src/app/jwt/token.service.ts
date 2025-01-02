@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserService } from '../service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,10 @@ export class TokenService {
   private jwtHelperService = new JwtHelperService();
   localStorage?: Storage;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private userSvc: UserService
+  ) {
     this.localStorage = document.defaultView?.localStorage;
   }
 
@@ -34,6 +38,27 @@ export class TokenService {
     let userObject = this.jwtHelperService.decodeToken(token);
     return 'id' in userObject ? parseInt(userObject['id']) : 0;
   }
+
+  setUserToLocalStogare() {
+    this.userSvc.getUserById(this.getUserId()).subscribe({
+      next: (response) => {
+        this.localStorage?.setItem('user', JSON.stringify(response));
+      }
+    })
+  }
+
+  getUserFromLocalStorage(): any {
+    let user = this.localStorage?.getItem('user');
+    if (user) {
+      return JSON.parse(user);
+    }
+    return null;
+  }
+
+  removeUserFromLocalStorage() {
+    this.localStorage?.removeItem('user');
+  }
+
 
 
   removeToken(): void {

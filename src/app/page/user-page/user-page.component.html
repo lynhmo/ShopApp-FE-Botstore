@@ -1,14 +1,20 @@
-<div class="container ">
+<div class="container">
   <div class="d-flex align-items-center">
     <mat-icon style="font-size: 26px;">person</mat-icon>
-    <span style="font-size: 26px;margin-left: 1rem;">Trang cá nhân</span>
+    <span style="font-size: 26px; margin-left: 1rem;">Trang cá nhân</span>
   </div>
   <div class="d-flex justify-content-between pt-3">
     <div class="left-panel shadow">
-      <div class="d-flex align-items-center gap-2 active-tab"> <mat-icon>edit</mat-icon>Thông tin cá nhân</div>
-      <div class="d-flex align-items-center gap-2"> <mat-icon>history</mat-icon>Lịch sử đơn hàng</div>
-      <div class="d-flex align-items-center gap-2"> <mat-icon>lock</mat-icon>Thay đổi mật khẩu</div>
+      <div *ngFor="let tab of tabs; let i = index" class="d-flex align-items-center gap-2 tab"
+        [ngClass]="{ 'active-tab': activeTab === i }" (click)="setActiveTab(i, $event)">
+        <mat-icon>{{ tab.icon }}</mat-icon>{{ tab.label }}
+      </div>
+      <div class="highlight" #highlight></div>
     </div>
-    <div class="right-panel shadow">right</div>
+    <div class="right-panel shadow">
+      <profile-panel *ngIf="activeTab === 0"></profile-panel>
+      <order-history *ngIf="activeTab === 1"></order-history>
+      <password-change *ngIf="activeTab === 2"></password-change>
+    </div>
   </div>
 </div>

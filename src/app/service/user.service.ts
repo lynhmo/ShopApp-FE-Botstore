@@ -20,12 +20,21 @@ export class UserService {
     this.localStorage = document.defaultView?.localStorage;
   }
 
+
+  getUserById(id: number) {
+    return this.http.get<UserResponse>(this.apiUserDetail + '/user-details/' + id);
+  }
+
   getAllUser() {
     return this.http.get<UserResponse[]>(this.apiUserDetail + '/all');
   }
 
 
   editUser(user: any) {
+    return this.http.put<UserResponse>(this.apiUserDetail + '/' + user.id, user);
+  }
+
+  editUser_V2(user: UserResponse) {
     return this.http.put<UserResponse>(this.apiUserDetail + '/' + user.id, user);
   }
 

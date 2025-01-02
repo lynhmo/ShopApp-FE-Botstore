@@ -44,6 +44,9 @@ import { SearchComponent } from './component/search/search.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CategoryTableComponent } from './admin/component/data-table/category-table/category-table.component';
 import { OrderTableComponent } from './admin/component/data-table/order-table/order-table.component';
+import { ProfilePanelComponent } from './component/profile-panel/profile-panel.component';
+import { OrderHistoryComponent } from './component/order-history/order-history.component';
+import { PasswordChangeComponent } from './component/password-change/password-change.component';
 
 
 const routes: Routes = [
@@ -108,7 +111,10 @@ const routes: Routes = [
     ProductTableComponent,
     SearchComponent,
     CategoryTableComponent,
-    OrderTableComponent
+    OrderTableComponent,
+    ProfilePanelComponent,
+    OrderHistoryComponent,
+    PasswordChangeComponent
   ],
   imports: [
     BrowserModule,

@@ -46,6 +46,7 @@ export class LoginComponent {
           next: (response: TokenResponse) => {
             this.showToast('Login successful!', 'success');
             this.tokenService.setToken(response.access_token)
+            this.tokenService.setUserToLocalStogare()
             this.goToHome()
           },
           complete: () => {
