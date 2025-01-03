@@ -123,7 +123,6 @@ export class DetailProductComponent implements OnInit {
     }
     this.orderDetailService.addOrderDetail(requestBody).subscribe({
       next: (data) => {
-        console.log(data)
       },
       error: (err) => {
         console.error('API Error:', err); // Log the error

@@ -57,7 +57,6 @@ export class ProfilePanelComponent implements OnInit {
         date_of_birth: this.formattedDate,
         role_id: this._userData.role.id
       }
-      console.log(sendData);
 
       this.userService.editUser(sendData).subscribe({
         next: (response) => {

@@ -29,7 +29,6 @@ export class OrderHistoryComponent implements OnInit {
   loadOrders() {
     this.orderService.getAllOrdersByUserId(this.userId).subscribe(data => {
       this.ordersDetails = data;
-      console.log(this.ordersDetails);
     });
   }
 

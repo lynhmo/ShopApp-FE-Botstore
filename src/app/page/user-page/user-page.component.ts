@@ -12,7 +12,7 @@ export class UserPageComponent {
     { label: 'Thay đổi mật khẩu', icon: 'lock', tabname: 'password' },
   ];
 
-  activeTab = 1;
+  activeTab = 0;
 
   @ViewChild('highlight') highlight!: ElementRef;
 

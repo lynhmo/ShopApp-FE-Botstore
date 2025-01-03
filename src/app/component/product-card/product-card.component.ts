@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,23 +6,15 @@ import { Router } from '@angular/router';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
-export class ProductCardComponent  implements OnInit {
+export class ProductCardComponent {
   @Input() product: any;
   stars: number[] = [];
 
   constructor(
     private router: Router,
-  ){}
-
-
+  ) { }
 
   goToProduct(): void {
-    this.router.navigate(['/detail-product/'+this.product.id]);
-  }
-
-  ngOnInit(): void {
-    // console.log(this.product);
-    // const fullStars = Math.floor(this.product.rating);
-    // this.stars = Array(fullStars).fill(0);
+    this.router.navigate(['/detail-product/' + this.product.id]);
   }
 }

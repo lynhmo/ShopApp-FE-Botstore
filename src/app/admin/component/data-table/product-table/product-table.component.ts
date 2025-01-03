@@ -164,7 +164,6 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   }
 
   onEditSubmit(form: any) {
-    console.log(form.value);
     this.productService.updateProduct(form.value).subscribe({
       next: (response) => {
         this.toastPopupService.showToast('Update product success', 'success');
@@ -255,8 +254,6 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   toggleAllRows() {
     if (this.isAllSelected()) {
-      console.log('ALL: ' + this.isAllSelected());
-
       this.selection.clear();
       return;
     }

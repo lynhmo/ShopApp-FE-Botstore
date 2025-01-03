@@ -66,7 +66,6 @@ export class PaymentComponent implements OnInit {
         this.tokenService.getUserId(), 'processing')
         .subscribe({
           next: (response) => {
-            console.log(response);
           }
         });
 

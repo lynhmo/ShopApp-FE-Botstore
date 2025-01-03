@@ -4,6 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpUtilsService } from './http-utils.service';
 import { environment } from '../env/enviroment';
 import { UserResponse } from '../model/user-response';
+import { PasswordRequest } from '../model/PasswordRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,13 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private httpUtilsService: HttpUtilsService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.localStorage = document.defaultView?.localStorage;
+  }
+
+  updatePassword(uid: number, passwordPayload: PasswordRequest) {
+    return this.http.put(this.apiUserDetail + '/update-password/' + uid, passwordPayload);
   }
 
 
