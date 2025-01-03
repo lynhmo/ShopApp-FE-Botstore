@@ -69,7 +69,7 @@ export class ProfilePanelComponent implements OnInit {
   }
 
   cancelEdit() {
-    this._userData = { ...this.originalData };
+    // this._userData = { ...this.originalData };
     this.isEditing = false;
   }
 }
