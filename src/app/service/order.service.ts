@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../env/enviroment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpUtilsService } from './http-utils.service';
 import { Order } from '../model/Order';
 import { PageableResponse } from '../model/PageableResponse';
 import { map, Observable } from 'rxjs';
-import { TokenService } from '../jwt/token.service';
 import { SuccessResponse } from '../response/SuccessResponse';
 import { OrderResponse } from '../response/OrderResponse';
 
@@ -16,10 +14,15 @@ export class OrderService {
   private apiOrder = `${environment.apiBaseUrl}/orders`;
 
   constructor(
-    private http: HttpClient,
-    private httpUtilsService: HttpUtilsService,
-    private tokenService: TokenService,
+    private http: HttpClient
   ) { }
+
+
+  getAll(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.apiOrder + "/all-orders");
+  }
+
+
 
   getAllPageable(page: number, size: number, userId: number): Observable<PageableResponse<Order>> {
     // Build query parameters
