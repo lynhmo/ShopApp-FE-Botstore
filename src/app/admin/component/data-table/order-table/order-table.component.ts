@@ -1,12 +1,14 @@
 import { UserService } from 'src/app/service/user.service';
 import { OrderService } from 'src/app/service/order.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from '@angular/material/paginator';
 import { ToastPopupService } from 'src/app/service/toast-popup.service';
 
 import { Order } from 'src/app/model/Order';
+import { DOCUMENT } from '@angular/common';
+import { UserResponse } from 'src/app/model/user-response';
 
 @Component({
   selector: 'order-table',
@@ -17,9 +19,11 @@ export class OrderTableComponent {
   constructor(
     private toastPopupService: ToastPopupService,
     private OrderService: OrderService,
-    private UserService: UserService
-  ) { }
+    @Inject(DOCUMENT) private document: Document
+  ) { this.localStorage = document.defaultView?.localStorage; }
 
+  localStorage?: Storage
+  user!: UserResponse
 
   //Variable for table
   pageOrder!: Order[];
@@ -31,7 +35,7 @@ export class OrderTableComponent {
   }
 
   // Data table related
-  displayedColumns: string[] = ['id', 'uid', 'username', 'address', 'orderdate', 'totalmoney', 'status', 'isdelete', 'utils'];
+  displayedColumns: string[] = ['id', 'uid', 'username', 'address', 'orderdate', 'totalmoney', 'status', 'utils'];
   dataSource!: MatTableDataSource<Order>;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -39,6 +43,7 @@ export class OrderTableComponent {
 
   ngOnInit(): void {
     this.loadOrder();
+    this.user = this.localStorage?.getItem('user') ? JSON.parse(this.localStorage?.getItem('user') as string) : null;
   }
 
   loadOrder() {
@@ -57,28 +62,38 @@ export class OrderTableComponent {
   }
 
 
+  orderStatus = [
+    { value: 'cancelled', name: 'Đã huỷ' },
+    { value: 'shipped', name: 'Đang chuyển hàng' },
+    { value: 'delivered', name: 'Đã chuyển hàng' },
+    { value: 'processing', name: 'Đang xử lý' },
+  ]
+
+
   updateStatusPayload = {
+    id: null,
     status: '',
   };
 
   updateOrder(order: any) {
     this.updateStatusPayload = {
+      id: order.id,
       status: order.status,
     };
   }
 
   onEditSubmit(form: any) {
     const order: Order = form.value;
-    // this.OrderService.updateOrderStatus(12, order.id, this.updateStatusPayload.status).subscribe({
-    //   next: (response) => {
-    //     this.toastPopupService.showToast('Edit user success', 'success');
-    //     this.loadOrder();
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //     this.toastPopupService.showToast(error, 'error');
-    //   }
-    // })
+    this.OrderService.updateOrderStatus(order.id, this.user.id, this.updateStatusPayload.status).subscribe({
+      next: (response) => {
+        this.toastPopupService.showToast('Sửa thông tin đơn hàng thành công', 'success');
+        this.loadOrder();
+      },
+      error: (error) => {
+        console.error(error);
+        this.toastPopupService.showToast(error, 'error');
+      }
+    })
   }
 
 

@@ -51,10 +51,10 @@
       </ng-container>
 
       <!-- Deleted Column -->
-      <ng-container matColumnDef="isdelete">
+      <!-- <ng-container matColumnDef="isdelete">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Xoá </th>
         <td mat-cell *matCellDef="let element"> {{!element.is_deleted ? "ACTIVE" : "DELETED"}} </td>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Utils Column -->
       <ng-container matColumnDef="utils">
@@ -76,63 +76,52 @@
 
 
 <!-- Edit Modal -->
-<!-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+        <h5 class="modal-title" id="editModalLabel">Update order status</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
         <form #editForm="ngForm" (ngSubmit)="onEditSubmit(editForm); editForm.reset()" novalidate>
 
+
+          <!-- ID -->
           <div class="mb-3">
-            <label for="id" class="form-label">ID</label>
-            <input [(ngModel)]="tempUpdateUser.id" name="id" type="text" class="form-control" id="id" readonly
-              style="cursor: not-allowed;" />
+            <label for="id" class="form-label">Product Name</label>
+            <input [(ngModel)]="updateStatusPayload.id" name="id" type="text" class="form-control" id="id" required
+              #prodID="ngModel" readonly />
+            <div *ngIf="prodID.invalid && prodID.touched" class="text-danger">
+              Tên sản phẩm là bắt buộc.
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="fullname" class="form-label">Full Name</label>
-            <input [(ngModel)]="tempUpdateUser.fullname" name="fullname" type="text" class="form-control"
-              id="fullname" />
-          </div>
+
 
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input [(ngModel)]="tempUpdateUser.username" name="username" type="text" class="form-control" id="username"
-              readonly style="cursor: not-allowed;" />
-          </div>
+            <label for="status" class="form-label">Trạng thái đơn hàng</label>
 
-          <div class="mb-3">
-            <label for="address" class="form-label">Price</label>
-            <input [(ngModel)]="tempUpdateUser.address" name="address" type="text" class="form-control" id="address" />
-          </div>
-
-          <div class="mb-3">
-            <label for="role_id" class="form-label">Role</label>
-
-            <select [(ngModel)]="tempUpdateUser.role_id" name="role_id" class="form-select" id="role_id" required
-              #role_id="ngModel">
-              <option [value]="1">ADMIN</option>
-              <option [value]="2">USER</option>
+            <select [(ngModel)]="updateStatusPayload.status" name="status" class="form-select" id="status" required
+              #status="ngModel">
+              <option *ngFor="let _status of orderStatus" [value]="_status.value">{{_status.name}}</option>
             </select>
 
-            <div *ngIf="role_id.invalid && role_id.touched" class="text-danger">
-              Role không hợp lệ
+            <div *ngIf="status.invalid && status.touched" class="text-danger">
+              Trạng thái không hợp lệ
             </div>
 
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!editForm.form.valid">Save
-              Changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!editForm.form.valid">
+              Lưu</button>
           </div>
 
         </form>
       </div>
     </div>
   </div>
-</div> -->
+</div>
