@@ -1,4 +1,42 @@
 <div class="home-container">
   <images-slider></images-slider>
-  <h1>Some prod in here</h1>
+  <!-- Product area -->
+  <div>
+    <!-- New Product -->
+    <div class="product-tag">
+      <span><mat-icon>fiber_new</mat-icon> Sản phẩm mới</span>
+      <div class="product-row">
+        <!-- {{productList | json}} -->
+        <div class="col" *ngFor="let product of newProductList">
+          <product-card [product]="product"></product-card>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Low Price-->
+    <div class="product-tag">
+      <span><mat-icon> attach_money</mat-icon>Sản phẩm giá ưu đãi</span>
+      <div class="product-row">
+        <!-- {{productList | json}} -->
+        <div class="col" *ngFor="let product of cheapProductList">
+          <product-card [product]="product"></product-card>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Best Selling -->
+    <div class="product-tag">
+      <span><mat-icon> attach_money</mat-icon>Được bán nhiều nhất</span>
+      <div class="product-row">
+        <!-- {{productList | json}} -->
+        <div class="col" *ngFor="let product of popularProductList">
+          <product-card [product]="product"></product-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

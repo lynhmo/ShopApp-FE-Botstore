@@ -1,3 +1,30 @@
-.home-container{
+.home-container {
   margin: 0 7.5rem 0 7.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-tag {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-top: 3rem;
+
+  span {
+    font-size: 30px;
+    font-weight: 500;
+    color: #397224;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+
+.product-row {
+  display: flex;
+  gap: 4rem;
+  margin-top: 1rem;
 }

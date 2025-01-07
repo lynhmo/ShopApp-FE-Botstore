@@ -6,6 +6,7 @@ import { PageableResponse } from '../model/PageableResponse';
 import { Product } from '../model/product.model';
 import { OrderDetailService } from './orderDetail.service';
 import { ProductRequest } from '../model/ProductRequest.model';
+import { ProductResponse } from '../response/ProductResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -89,5 +90,18 @@ export class ProductService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     return this.http.post<Product>(this.apiProduct + "/v2", product, { headers });
+  }
+
+
+  getNewProduct(): Observable<ProductResponse[]> {
+    return this.http.get<ProductResponse[]>(this.apiProduct + "/search/newest");
+  }
+
+  getCheapProduct(): Observable<ProductResponse[]> {
+    return this.http.get<ProductResponse[]>(this.apiProduct + "/search/cheap");
+  }
+
+  getPopularProduct(): Observable<ProductResponse[]> {
+    return this.http.get<ProductResponse[]>(this.apiProduct + "/search/popular");
   }
 }

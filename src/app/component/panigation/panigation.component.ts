@@ -12,11 +12,11 @@ export class PanigationComponent implements OnChanges {
 
 
 
-  currentPage: number = 1; // Allow parent to set the current page
+  currentPage: number = 1;
   pagesToShow: number[] = [];
 
   ngOnChanges(): void {
-    this.updatePagesToShow(); // Recalculate pages whenever inputs change
+    this.updatePagesToShow();
   }
 
   updatePagesToShow(): void {
@@ -37,11 +37,11 @@ export class PanigationComponent implements OnChanges {
   }
 
   goToPage(page: number): void {
-  if (page >= this.firstPage && page <= this.lastPage) {
-    this.currentPage = page;
-    this.updatePagesToShow();
-    this.currentPageChange.emit(this.currentPage); // Notify parent
-  }
+    if (page >= this.firstPage && page <= this.lastPage) {
+      this.currentPage = page;
+      this.updatePagesToShow();
+      this.currentPageChange.emit(this.currentPage);
+    }
   }
 
   nextPage(): void {
@@ -63,7 +63,6 @@ export class PanigationComponent implements OnChanges {
 
   goToFirst(): void {
     this.goToPage(this.firstPage);
-
   }
 
 }
