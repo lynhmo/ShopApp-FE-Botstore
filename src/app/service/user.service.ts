@@ -35,6 +35,8 @@ export class UserService {
 
 
   editUser(user: any) {
+    console.log(user);
+
     return this.http.put<UserResponse>(this.apiUserDetail + '/' + user.id, user);
   }
 

@@ -18,17 +18,15 @@
   display: flex;
   flex-direction: column;
 
-  #cart-right-child{
+  #cart-right-child {
     background-color: white;
     padding: 1rem;
     border-radius: 15px;
     margin-bottom: 1rem;
   }
 
-  .address-tag{
-  }
 
-  .shipping-cal{
+  .shipping-cal {
     display: flex;
     flex-direction: column;
   }
@@ -45,6 +43,15 @@
     }
   }
 
+  .address-btn {
+    background-color: #72af5c;
+    color: white;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #4e944e;
+    }
+  }
 
   .button-product {
     width: 100%;
@@ -53,22 +60,27 @@
     border: none;
     font-weight: bold;
 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    transition: transform 0.2s, box-shadow 0.2s; /* Smooth animation */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    /* Shadow effect */
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Smooth animation */
 
     &:active {
-      transform: translateY(2px); /* Move the button down */
-      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); /* Reduce shadow size */
+      transform: translateY(2px);
+      /* Move the button down */
+      box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+      /* Reduce shadow size */
     }
   }
 
 
-  .money-total{
+  .money-total {
     font-size: 26px;
     color: #4e944e;
     font-weight: bold;
   }
-  .small-text{
+
+  .small-text {
     font-size: small;
   }
 }
@@ -118,7 +130,7 @@
       width: 55%;
       display: flex;
       align-items: center;
-      justify-content: space-between ;
+      justify-content: space-between;
     }
   }
 

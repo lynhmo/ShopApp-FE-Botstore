@@ -45,7 +45,10 @@
   <div class="cart-right-container">
     <span style="font-size: 1.5rem; font-weight: 500;">Thông tin đơn hàng</span>
     <br>
-    <div id="cart-right-child" class="address-tag shadow">address</div>
+    <div id="cart-right-child" class="address-tag shadow">
+      <span style="font-size: larger; font-weight: 400;">Địa chỉ: {{userAddress || ''}}</span>
+      <button class="button-product address-btn" data-bs-target="#editModal" data-bs-toggle="modal">Sửa địa chỉ</button>
+    </div>
     <div id="cart-right-child" class="shipping-cal shadow">
       <div class="d-flex flex-column gap-2">
         <div class="d-flex justify-content-between">
@@ -63,9 +66,51 @@
       <span class="money-total">{{formatToVietnameseDong(totalMoney + shippedCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
-    <button *ngIf="listOrderDetail == null " id="addCart" class="button-product" disableds
-      style="background-color: rgb(178, 178, 178);">Thanh toán</button>
-    <button *ngIf="listOrderDetail != null && listOrderDetail.length > 0" id="addCart" class="button-product"
-      routerLink="/payment" routerLinkActive="active" (click)="setSessionPayment()">Thanh toán</button>
+    <button *ngIf="listOrderDetail == null || !isThereAddress" id="addCart" class="button-product" disableds
+      style="background-color: rgb(178, 178, 178);" (click)="checkAddress()">Thanh toán</button>
+    <button *ngIf="(listOrderDetail != null && listOrderDetail.length > 0 && isThereAddress)" id="addCart"
+      class="button-product" routerLink="/payment" routerLinkActive="active" (click)="setSessionPayment()">Thanh
+      toán</button>
+  </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Cập nhật địa chỉ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- FORM -->
+        <form #editForm="ngForm" (ngSubmit)="updateAddress(editForm); editForm.reset()" novalidate>
+
+          <!-- NAME -->
+          <div class="mb-3">
+            <label for="name" class="form-label"> Địa chỉ</label>
+            <input [(ngModel)]="userInfo.address" name="address" type="text" class="form-control" id="address" required
+              #eidtaddress="ngModel" />
+            <div *ngIf="eidtaddress.invalid && eidtaddress.touched" class="text-danger">
+              Địa chỉ là bắt buộc.
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+              [disabled]="!editForm.form.valid">Lưu</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
   </div>
 </div>

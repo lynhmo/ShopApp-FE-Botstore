@@ -6,15 +6,19 @@ import { Order } from 'src/app/model/Order';
 import { OrderDetailProduct } from 'src/app/model/OrderDetailProduct';
 import { Product } from 'src/app/model/product.model';
 import { UpdateOrderDetails } from 'src/app/model/UpdateOrderDetails';
+import { UserResponse } from 'src/app/model/user-response';
 import { OrderService } from 'src/app/service/order.service';
 import { OrderDetailService } from 'src/app/service/orderDetail.service';
 import { ProductService } from 'src/app/service/product.service';
-
+import { ToastPopupService } from 'src/app/service/toast-popup.service';
+import { UserService } from 'src/app/service/user.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  providers: [DatePipe]
 })
 export class CartComponent implements OnInit {
 
@@ -38,15 +42,59 @@ export class CartComponent implements OnInit {
 
   isLoading: boolean = false
 
+  userInfo!: UserResponse
+
+  userAddress!: string
+
+  isThereAddress: boolean = false
+
   constructor(
     private orderDetailService: OrderDetailService,
     private productService: ProductService,
     private orderService: OrderService,
+    private toastSvc: ToastPopupService,
+    private userService: UserService,
+    private datePipe: DatePipe,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.localStorage = document.defaultView?.localStorage;
-
     this.sessionStorages = document.defaultView?.sessionStorage;
+  }
+
+
+
+  updateAddress(form: any) {
+
+    const date = this.datePipe.transform(this.userInfo.dateOfBirth, 'yyyy-MM-dd')
+
+    const userPayload = {
+      id: this.userInfo.id,
+      fullname: this.userInfo.fullName,
+      address: this.userInfo.address.trim(),
+      date_of_birth: date,
+      role_id: this.userInfo.role.id
+    }
+
+    console.log(userPayload);
+
+    this.userService.editUser(userPayload).subscribe({
+      next: (value) => {
+        this.localStorage?.removeItem('user')
+        this.localStorage?.setItem('user', JSON.stringify(value));
+        this.loadUser()
+      },
+    })
+  }
+
+  loadUser() {
+    this.userInfo = this.localStorage?.getItem('user') ? JSON.parse(this.localStorage?.getItem('user') as string) : null;
+    this.userAddress = this.userInfo.address
+  }
+
+  checkAddress() {
+    if (this.userInfo.address === null || this.userInfo.address === "") {
+      this.toastSvc.showToastTime("Hãy bổ sung địa chỉ", 'error', 2000)
+    }
   }
 
   setSessionPayment() {
@@ -60,6 +108,7 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadUser()
     this.sessionStorages?.removeItem(this.ORDER_PROCDUCT)
     this.refreshOrder()
   }
