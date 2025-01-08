@@ -104,4 +104,10 @@ export class ProductService {
   getPopularProduct(): Observable<ProductResponse[]> {
     return this.http.get<ProductResponse[]>(this.apiProduct + "/search/popular");
   }
+
+  getSameCategory(categoryId: number): Observable<ProductResponse[]> {
+    let params = new HttpParams()
+      .set('categoryId', categoryId);
+    return this.http.get<ProductResponse[]>(this.apiProduct + "/search/category", { params });
+  }
 }

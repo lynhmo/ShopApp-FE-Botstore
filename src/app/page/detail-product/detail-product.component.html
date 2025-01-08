@@ -9,13 +9,6 @@
       <div class="h-100">
         <img class="main-img" [src]="thumbnail" alt="logo">
       </div>
-      <!-- <div class="h-25 row row-cols-5 list-img g-1">
-        <img class="col small-img" src="assets/image/slider/slider1.jpg" alt="logo">
-        <img class="col small-img" src="assets/image/slider/slider2.jpg" alt="logo">
-        <img class="col small-img" src="assets/image/slider/slider3.jpg" alt="logo">
-        <img class="col small-img" src="assets/image/slider/slider4.jpg" alt="logo">
-        <img class="col small-img" src="assets/image/slider/slider5.jpg" alt="logo">
-      </div> -->
     </div>
     <div class="detail-panel pt-5">
       <p class="fs-2 fw-medium text-break">{{productName}}</p>
@@ -31,13 +24,20 @@
         <button id="buyNow" class="button-product">Mua ngay</button>
       </div>
       <div class="description">
+        Mô tả:
         <p class="text-justify">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut velit quia, inventore nemo magnam quas dolor
-          delectus quidem suscipit rem et aliquid neque iste aliquam. Fuga quia optio facilis est!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro suscipit cumque possimus doloribus recusandae
-          harum tenetur cupiditate distinctio dolore at, nobis quo, quisquam illum debitis sint corporis aliquam ipsa
-          in.
+          {{description|| 'Không có mô tả'}}
         </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- List Product -->
+  <div class="product-tag">
+    <span><mat-icon>fiber_new</mat-icon> Sản phẩm tương tự</span>
+    <div class="product-row">
+      <div class="col max-width" *ngFor="let product of ProductList">
+        <product-card [product]="product"></product-card>
       </div>
     </div>
   </div>

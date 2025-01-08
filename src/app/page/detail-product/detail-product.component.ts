@@ -7,6 +7,7 @@ import { Product } from 'src/app/model/product.model';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
 import { DOCUMENT } from '@angular/common';
+import { ProductResponse } from 'src/app/response/ProductResponse';
 
 @Component({
   selector: 'app-detail-product',
@@ -22,7 +23,7 @@ export class DetailProductComponent implements OnInit {
   product!: Product;  // Product details fetched from API
   isLoading = true;
   category!: Category;
-
+  ProductList!: ProductResponse[]
 
 
   thumbnail!: string
@@ -30,6 +31,8 @@ export class DetailProductComponent implements OnInit {
   categoryName!: string
   price!: number
   inputQuantity: number = 1
+  description!: string
+  categoryID!: number
 
   constructor(
     private router: Router,
@@ -45,13 +48,26 @@ export class DetailProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      const id = params.get('productID'); // Retrieve 'id' from the URL
+      const id = params.get('productID');
       if (id) {
-        this.productId = +id; // Convert string ID to a number
-        this.loadProductDetails(); // Call API to fetch product details
+        this.productId = +id;
+        this.loadProductDetails();
       }
     });
+    this.description = this.product?.description
   }
+
+  loadListProduct(categoryId: number) {
+    this.productService.getSameCategory(categoryId).subscribe({
+      next: (value) => {
+        console.log(value);
+        this.ProductList = value
+      }
+    })
+  }
+
+
+
 
   loadProductDetails(): void {
     this.productService.getProduct(this.productId).subscribe({
@@ -62,6 +78,7 @@ export class DetailProductComponent implements OnInit {
         }
 
         this.loadCategory(this.product.category_id)
+        this.loadListProduct(this.product.category_id)
         this.thumbnail = this.product.thumbnail
         this.productName = this.product.name
         this.price = this.product.price
