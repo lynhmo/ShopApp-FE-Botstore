@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/jwt/token.service';
 import { UserResponse } from 'src/app/model/user-response';
+import { ToastPopupService } from 'src/app/service/toast-popup.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class ProfilePanelComponent implements OnInit {
   localStorage?: Storage;
 
   constructor(
+    private toastSvc: ToastPopupService,
     private userService: UserService,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -33,6 +35,8 @@ export class ProfilePanelComponent implements OnInit {
     }
   }
 
+  tempAddress!: string
+
   ngOnInit(): void {
     this.loadUserData();
   }
@@ -48,6 +52,7 @@ export class ProfilePanelComponent implements OnInit {
   originalData = { ...this._userData };
 
   toggleEdit() {
+    this.tempAddress = this._userData.address
     if (this.isEditing) {
       this.originalData = { ...this._userData };
       const sendData = {
@@ -62,6 +67,10 @@ export class ProfilePanelComponent implements OnInit {
         next: (response) => {
           this.originalData = { ...response };
           this.localStorage?.setItem('user', JSON.stringify(response));
+          this.toastSvc.showToast('Thay đổi thông tin thành công!', 'success')
+        },
+        error: () => {
+          this.toastSvc.showToast('Thay đổi thông tin thất bại!', 'error')
         }
       });
     }
@@ -69,7 +78,7 @@ export class ProfilePanelComponent implements OnInit {
   }
 
   cancelEdit() {
-    // this._userData = { ...this.originalData };
+    this._userData.address = this.tempAddress
     this.isEditing = false;
   }
 }
