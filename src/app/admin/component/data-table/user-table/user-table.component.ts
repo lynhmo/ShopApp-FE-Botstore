@@ -1,5 +1,5 @@
 import { ErrorResponse } from './../../../../response/ErrorResponse';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,6 +7,7 @@ import { Category } from 'src/app/model/category';
 import { ToastPopupService } from 'src/app/service/toast-popup.service';
 import { UserService } from 'src/app/service/user.service';
 import { UserResponse } from 'src/app/model/user-response';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'user-table',
@@ -14,11 +15,16 @@ import { UserResponse } from 'src/app/model/user-response';
   styleUrls: ['./user-table.component.scss']
 })
 export class TableComponent implements AfterViewInit {
+  localStorage?: Storage
 
   constructor(
     private toastPopupService: ToastPopupService,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.localStorage = document.defaultView?.localStorage;
+  }
+
 
 
   //Variable for table
@@ -26,6 +32,8 @@ export class TableComponent implements AfterViewInit {
   listCategory: Category[] = [];
   selectedCategoryId: number | null = null;
 
+
+  currUser!: UserResponse
 
 
 
@@ -38,6 +46,11 @@ export class TableComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.loadUser();
+    this.loadCurrUser()
+  }
+
+  loadCurrUser() {
+    this.currUser = this.localStorage?.getItem('user') ? JSON.parse(this.localStorage?.getItem('user') as string) : null;
   }
 
   loadUser() {

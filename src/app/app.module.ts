@@ -47,6 +47,7 @@ import { OrderTableComponent } from './admin/component/data-table/order-table/or
 import { ProfilePanelComponent } from './component/profile-panel/profile-panel.component';
 import { OrderHistoryComponent } from './component/order-history/order-history.component';
 import { PasswordChangeComponent } from './component/password-change/password-change.component';
+import { OrderDetailComponent } from './admin/component/order-detail/order-detail.component';
 
 
 const routes: Routes = [
@@ -114,7 +115,8 @@ const routes: Routes = [
     OrderTableComponent,
     ProfilePanelComponent,
     OrderHistoryComponent,
-    PasswordChangeComponent
+    PasswordChangeComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

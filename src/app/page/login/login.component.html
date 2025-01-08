@@ -25,7 +25,7 @@
           <label for="username">Username</label>
           <div class="text-danger" style="margin-top: 2px; margin-left: 5px;"
             *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
-            <small *ngIf="loginForm.get('username')?.errors?.['required']">- Username is required.</small>
+            <small *ngIf="loginForm.get('username')?.errors?.['required']"> - Username is required.</small>
           </div>
         </div>
         <input id="username" type="text" formControlName="username" placeholder="Enter your username" required />
@@ -36,8 +36,8 @@
           <label for="password">Password</label>
           <div class="text-danger" style="margin-top: 1px; margin-left: 5px;"
             *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-            <small *ngIf="loginForm.get('password')?.errors?.['required']">- Password is required.</small>
-            <small *ngIf="loginForm.get('password')?.errors?.['minlength']">- Password must be at least 6 characters
+            <small *ngIf="loginForm.get('password')?.errors?.['required']"> - Password is required.</small>
+            <small *ngIf="loginForm.get('password')?.errors?.['minlength']"> - Password must be at least 6 characters
               long.</small>
           </div>
         </div>
@@ -50,7 +50,8 @@
           placeholder="Enter your retype password" required />
       </div>
 
-      <button class="submit-button global-button" type="submit">Đăng nhập</button>
+      <button class="submit-button global-button" type="submit" *ngIf="!isResgisterForm">Đăng nhập</button>
+      <button class="submit-button global-button" type="submit" *ngIf="isResgisterForm">Đăng ký</button>
     </form>
 
 
@@ -60,7 +61,3 @@
   </div>
 
 </div>
-
-
-
-

@@ -53,7 +53,7 @@
             *ngIf="element.isActive">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button (click)="deleteUser(element)" *ngIf="element.isActive">
+          <button mat-icon-button (click)="deleteUser(element)" *ngIf="element.isActive && element.id !== currUser.id">
             <mat-icon color="warn">delete</mat-icon>
           </button>
         </td>
