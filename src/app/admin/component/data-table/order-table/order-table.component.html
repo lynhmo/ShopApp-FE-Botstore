@@ -1,7 +1,7 @@
 <div class="bg-white rounded shadow p-3">
   <div class="button-container">
     <mat-form-field class="ms-4">
-      <input (keyup)="applyFilter($event)" matInput placeholder="Filter">
+      <input (keyup)="applyFilter($event)" matInput placeholder="Tìm kiếm">
     </mat-form-field>
   </div>
 
@@ -80,7 +80,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Update order status</h5>
+        <h5 class="modal-title" id="editModalLabel">Cập nhật trạng thái hoá đơn</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -90,12 +90,9 @@
 
           <!-- ID -->
           <div class="mb-3">
-            <label for="id" class="form-label">Product Name</label>
-            <input [(ngModel)]="updateStatusPayload.id" name="id" type="text" class="form-control" id="id" required
-              #prodID="ngModel" readonly />
-            <div *ngIf="prodID.invalid && prodID.touched" class="text-danger">
-              Tên sản phẩm là bắt buộc.
-            </div>
+            <label for="id" class="form-label">Mã đơn hàng</label>
+            <input [(ngModel)]="updateStatusPayload.id" name="id" type="text" class="form-control" id="id" readonly
+              style="cursor: not-allowed;" />
           </div>
 
 
