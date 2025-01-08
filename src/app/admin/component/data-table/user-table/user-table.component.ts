@@ -1,3 +1,4 @@
+import { ErrorResponse } from './../../../../response/ErrorResponse';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from "@angular/material/sort";
@@ -50,18 +51,20 @@ export class TableComponent implements AfterViewInit {
   }
 
 
-  deleteUser(product: any) {
-    // const tempProduct: Product = product as Product;
-    // this.productService.deleteProduct(tempProduct.id).subscribe({
-    //   next: (response) => {
-    //     this.toastPopupService.showToast('Delete product success', 'success');
-    //     this.loadProduct();
-    //   },
-    //   error: (error) => {
-    //     const SuccessResponse = error
-    //     this.toastPopupService.showToast(SuccessResponse.message, 'error');
-    //   }
-    // });
+  deleteUser(user: any) {
+    if (confirm('Bạn có chắc chắn vô hiệu hoá người dùng ?')) {
+      const tempUser: UserResponse = user as UserResponse;
+      this.userService.deleteUser(tempUser.id).subscribe({
+        next: (response) => {
+          this.toastPopupService.showToast('Vô hiệu hoá người dùng', 'success');
+          this.loadUser();
+        },
+        error: (error) => {
+          const ErrorResponse = error as ErrorResponse
+          this.toastPopupService.showToast(ErrorResponse.errorMsg, 'error');
+        }
+      });
+    }
   }
 
 
