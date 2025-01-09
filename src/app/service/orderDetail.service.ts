@@ -7,6 +7,7 @@ import { map, Observable } from 'rxjs';
 import { UpdateOrderDetails } from '../model/UpdateOrderDetails';
 import { SuccessResponse } from '../response/SuccessResponse';
 import { AddProductToOrderRequest } from '../model/AddProductToOrderRequest';
+import { OrderDetailWithImage } from '../response/OrderDetailWithImage';
 
 
 @Injectable({
@@ -47,5 +48,10 @@ export class OrderDetailService {
 
   deleteAllOrderDetails(orderId: number) {
     return this.http.delete<SuccessResponse>(this.apiOrderDetail + "/order/" + orderId);
+  }
+
+
+  getAllOrderDetail(orderId: number): Observable<OrderDetailWithImage[]> {
+    return this.http.get<OrderDetailWithImage[]>(this.apiOrderDetail + "/order/admin/" + orderId)
   }
 }

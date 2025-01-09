@@ -66,10 +66,10 @@
       <span class="money-total">{{formatToVietnameseDong(totalMoney + shippedCost)}}</span>
       <span class="small-text">(Đã bao gồm VAT nếu có)</span>
     </div>
-    <button *ngIf="listOrderDetail == null || !isThereAddress" id="addCart" class="button-product" disableds
+    <button *ngIf="listOrderDetail == null" id="addCart" class="button-product" disableds
       style="background-color: rgb(178, 178, 178);" (click)="checkAddress()">Thanh toán</button>
-    <button *ngIf="(listOrderDetail != null && listOrderDetail.length > 0 && isThereAddress)" id="addCart"
-      class="button-product" routerLink="/payment" routerLinkActive="active" (click)="setSessionPayment()">Thanh
+    <button *ngIf="listOrderDetail != null && listOrderDetail.length > 0" id="addCart" class="button-product"
+      routerLink="/payment" routerLinkActive="active" (click)="setSessionPayment()">Thanh
       toán</button>
   </div>
 </div>

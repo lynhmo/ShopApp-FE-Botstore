@@ -28,10 +28,7 @@ export class OrderTableComponent {
   pageOrder!: Order[];
   selectedCategoryId: number | null = null;
 
-  formatDate(orderDate: string): String {
-    const date = new Date(orderDate);
-    return date.toISOString().slice(0, 10);
-  }
+
 
   // Data table related
   displayedColumns: string[] = ['id', 'uid', 'username', 'address', 'orderdate', 'totalmoney', 'status', 'utils'];
@@ -40,10 +37,27 @@ export class OrderTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
+  //Detail Order
+  isOrderDetailPanel: boolean = false
+  orderID!: number
+
   ngOnInit(): void {
     this.loadOrder();
     this.user = this.localStorage?.getItem('user') ? JSON.parse(this.localStorage?.getItem('user') as string) : null;
   }
+
+  // Chuyển  sang chi tiết hoaá đơn
+  goToDetailOrder(element: any) {
+    this.orderID = element?.id
+    this.isOrderDetailPanel = true
+  }
+
+  // Fỏmat date
+  formatDate(orderDate: string): String {
+    const date = new Date(orderDate);
+    return date.toISOString().slice(0, 10);
+  }
+
 
   loadOrder() {
     this.OrderService.getAll().subscribe({

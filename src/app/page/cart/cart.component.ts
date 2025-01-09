@@ -46,8 +46,6 @@ export class CartComponent implements OnInit {
 
   userAddress!: string
 
-  isThereAddress: boolean = false
-
   constructor(
     private orderDetailService: OrderDetailService,
     private productService: ProductService,
