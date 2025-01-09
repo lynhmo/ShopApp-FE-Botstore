@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../env/enviroment';
 
 
-const baseAuthUrl = 'http://localhost:2345/api/v1/users';
+// const baseAuthUrl = 'http://localhost:2345/api/v1/users';
 
 
 
@@ -13,13 +14,16 @@ const baseAuthUrl = 'http://localhost:2345/api/v1/users';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
+  private baseAuthUrl = `${environment.apiBaseUrl}/users`;
+
+
 
   register(data: any): Observable<any> {
-    return this.http.post(baseAuthUrl + "/register", data);
+    return this.http.post(this.baseAuthUrl + "/register", data);
   }
 
 
   login(data: any): Observable<any> {
-    return this.http.post(baseAuthUrl + "/login", data);
+    return this.http.post(this.baseAuthUrl + "/login", data);
   }
 }
